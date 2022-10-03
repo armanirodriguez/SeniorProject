@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from hearddit.forms import LoginForm
+from hearddit.views import RegisterView, home, CustomLoginView, profile
+from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('', home, name='users-home'),
+    path('register/', RegisterView.as_view(), name='users-register'),
+    path('login/', CustomLoginView.as_view(redirect_authenticated_user=True, template_name='users/login.html', authentication_form=LoginForm), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('profile/', profile, name='users-profile'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
