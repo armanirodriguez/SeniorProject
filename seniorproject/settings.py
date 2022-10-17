@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'hearddit',
+    'home',
     'groups',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -130,7 +131,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = 'login'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-STATIC_URL = '/hearddit/static/'
+MEDIA_URL = '/seniorproject/media/'
+STATIC_URL = '/home/static/'
 
 

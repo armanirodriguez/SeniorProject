@@ -15,13 +15,13 @@
                 <hr>
                 <li class="nav-item">
                     <a id="home-btn" href="{% url 'home' %}" class="nav-link text-white" aria-current="page">
-                        <img src="/hearddit/static/images/house-fill.svg" alt="" class="left-nav-img">
+                        <img src="/home/static/images/house-fill.svg" alt="" class="left-nav-img">
                         Home
                     </a>
                 </li>
                 <li>
                     <a id ="comm-btn" href="{% url 'groups:home' %}" class="nav-link text-white">
-                    <img src="/hearddit/static/images/people-fill.svg" alt="" class="left-nav-img">
+                    <img src="/home/static/images/people-fill.svg" alt="" class="left-nav-img">
                     Groups
                     </a>
                 </li>
@@ -29,8 +29,8 @@
             <hr>
             <div class="dropdown">
             <a href="{% url 'groups:home' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="#" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>Username</strong>
+                <img src="{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong><a href="{% url 'users:profile' %}">{{user.username}}</a></strong>
             </a>
             </div>
         </div>
@@ -43,7 +43,7 @@
             <ul class="nav nav-pills flex-column mb-auto">
 
                 <div id="top-btn-wrap" style="width: 100%; text-align: center;">
-                    <input id="top-btn" onclick="topFunction()" type="image" src="/hearddit/static/images/5399087-6.png" class="mb-3 top-button position-fixed" style="bottom:0;" />
+                    <input id="top-btn" onclick="topFunction()" type="image" src="/home/static/images/5399087-6.png" class="mb-3 top-button position-fixed" style="bottom:0;" />
                 </div>
                 {% block mid-content %}
                 {% endblock %}
@@ -61,7 +61,7 @@
                 <input class="form-control py-2" placeholder="Search" type="search">
                 <span class="input-group-append">
                     <a href="#">
-                        <img src="/hearddit/static/images/search.svg" alt="" class="m-2">
+                        <img src="/home/static/images/search.svg" alt="" class="m-2">
                     </a>
                 </span>
           </div>
@@ -71,6 +71,6 @@
     </div>
     {% endblock %}
 </div>
-<script src="/hearddit/static/js/topbutton.js"></script>
-<script src="/hearddit/static/js/sidebutton.js?2"></script>
+<script src="/home/static/js/topbutton.js"></script>
+<script src="/home/static/js/sidebutton.js?2"></script>
 {% endblock %}

@@ -139,11 +139,11 @@
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="/accounts/logout">{{user.username}} (logout)<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'users:logout' %}">{{user.username}} (logout)<span class="sr-only">(current)</span></a>
                     </li>
                 {% else %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="/accounts/login">Login <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'users:login' %}">Login <span class="sr-only">(current)</span></a>
                     </li>
                 {% endif %}
               </ul>
