@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="row p-0 m-0">
+    {% block left-bar %}
+    <div class="col-3 p-0 " style="min-width: 200px; max-width: 250px">
+        <div class="flex-column p-3 text-white bg-dark left-nav-bar">
+            <ul class="nav nav-pills flex-column mb-auto m-1">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="{% url 'home' %}">
+                        <img src="{% static 'images/hearddit-logo.png' %}"hearddit-logo.png width="30" height="30" class="d-inline-block align-top mr-1" alt="">
+                        hearddit
+                    </a>
+                </li>
+                <hr>
+                <li class="nav-item">
+                    <a id="home-btn" href="{% url 'home' %}" class="nav-link text-white" aria-current="page">
+                        <img src="/hearddit/static/images/house-fill.svg" alt="" class="left-nav-img">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a id ="comm-btn" href="{% url 'groups' %}" class="nav-link text-white">
+                    <img src="/hearddit/static/images/people-fill.svg" alt="" class="left-nav-img">
+                    Groups
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+            <a href="{% url 'profile' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="#" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>Username</strong>
+            </a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block mid-bar %}
+    <div class="col p-0">
+        <div id="overflow-wrap" style="height:100vh; width:100%; overflow-y: scroll;">
+            <ul class="nav nav-pills flex-column mb-auto">
+
+                <div id="top-btn-wrap" style="width: 100%; text-align: center;">
+                    <input id="top-btn" onclick="topFunction()" type="image" src="/hearddit/static/images/5399087-6.png" class="mb-3 top-button position-fixed" style="bottom:0;" />
+                </div>
+                {% block mid-content %}
+                {% endblock %}
+            </ul>
+
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block right-bar %}
+    <!-- RIGHT SIDE NAV BAR -->
+    <div class="col-3 p-0 right-nav-wrap bg-dark">
+        <div class="flex-column p-3 text-white bg-dark right-nav-bar" style="max-width: 250px; float:left">
+            <div class="input-group col-md-4">
+                <input class="form-control py-2" placeholder="Search" type="search">
+                <span class="input-group-append">
+                    <a href="#">
+                        <img src="/hearddit/static/images/search.svg" alt="" class="m-2">
+                    </a>
+                </span>
+          </div>
+            {% block right-content %}
+            {% endblock %}
+        </div>
+    </div>
+    {% endblock %}
+</div>
+<script src="/hearddit/static/js/topbutton.js"></script>
+<script src="/hearddit/static/js/sidebutton.js?2"></script>
+{% endblock %}
