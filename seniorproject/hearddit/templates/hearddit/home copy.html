@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="row p-0 m-0">
+    <div class="col-3 p-0 " style="min-width: 200px; max-width: 250px">
+        <div class="flex-column p-3 text-white bg-dark left-nav-bar">
+            <ul class="nav nav-pills flex-column mb-auto m-1">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="{% url 'hearddit:home' %}">
+                        <img src="{% static 'images/hearddit-logo.png' %}"hearddit-logo.png width="30" height="30" class="d-inline-block align-top mr-1" alt="">
+                        hearddit
+                    </a>
+                </li>
+                <hr>
+                <li class="nav-item">
+                    <a href="{% url 'hearddit:home' %}" class="nav-link active" aria-current="page">
+                        <img src="/hearddit/static/images/house-fill.svg" alt="" class="left-nav-img">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                    <img src="/hearddit/static/images/people-fill.svg" alt="" class="left-nav-img">
+                    Groups
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="#" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>Username</strong>
+            </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col p-0">
+        <div style="height:100vh; overflow-y: scroll;">
+            <div class="top-btn-wrap" style="width: 100%; text-align: center;">
+                <button class="mb-3 top-button btn btn-primary position-fixed" style="bottom: 0">top</button>
+            </div>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item mt-3">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1
+                            <div class="p-0 bg-black text-white mt-3">
+                                HELLO
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="post-width">
+                        <div class="p-4 bg-custom text-white">Post #1</div>
+                    </div>
+                </li>
+                
+            </ul>
+
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE NAV BAR -->
+    <div class="col-3 p-0 right-nav-wrap bg-dark">
+        <div class="flex-column p-3 text-white bg-dark right-nav-bar" style="max-width: 250px; float:left">
+            <div class="input-group col-md-4">
+                <input class="form-control py-2" placeholder="Search" type="search">
+                <span class="input-group-append">
+                    <a href="#">
+                        <img src="/hearddit/static/images/search.svg" alt="" class="m-2">
+                    </a>
+                </span>
+          </div>
+            <hr>
+            Trending
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <div class="p-3 mb-2 bg-custom text-white">Trending #1</div>
+                </li>
+                <li class="nav-item">
+                    <div class="p-3 mb-2 bg-custom text-white">Trending #2</div>
+                </li>
+                <li class="nav-item">
+                    <div class="p-3 mb-2 bg-custom text-white">Trending #3</div>
+                </li>
+                <li class="nav-item">
+                    <div class="p-3 mb-2 bg-custom text-white">Trending #N</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+{% extends "navbar.html" %}
+{% load static %}
+{% block mid-content %}
+    <li class="nav-item mt-3">
+        <div class="post-width">
+            <div class="p-3 bg-custom text-white">
+                <div class="row link-row">
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">h/GroupName</a>
+                    </div>
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">u/Username</a>
+                    </div>
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">Time Posted</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3 text-white mt-3">
+                    <div class="text-black">
+                        <p class="p-2">
+                            TEXT HERE
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3 text-white mt-3">
+                    <div class="text-black">
+                        <p class="p-2">
+                            SONGS HERE
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item mt-3">
+        <div class="post-width">
+            <div class="p-3 bg-custom text-white">
+                <div class="row link-row">
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">h/GroupName</a>
+                    </div>
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">u/Username</a>
+                    </div>
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">Time Posted</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3 text-white mt-3">
+                    <div class="text-black">
+                        <p class="p-2">
+                            TEXT HERE
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3 text-white mt-3">
+                    <div class="text-black">
+                        <p class="p-2">
+                            SONGS HERE
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item mt-3">
+        <div class="post-width">
+            <div class="p-3 bg-custom text-white">
+                <div class="row link-row">
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">h/GroupName</a>
+                    </div>
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">u/Username</a>
+                    </div>
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">Time Posted</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3 text-white mt-3">
+                    <div class="text-black">
+                        <p class="p-2">
+                            TEXT HERE
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3 text-white mt-3">
+                    <div class="text-black">
+                        <p class="p-2">
+                            SONGS HERE
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item mt-3">
+        <div class="post-width">
+            <div class="p-3 bg-custom text-white">
+                <div class="row link-row">
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">h/GroupName</a>
+                    </div>
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">u/Username</a>
+                    </div>
+                    <div class="col-4 link-col">
+                        <a href="#" class="white-link" style="font-size: 10px;">Time Posted</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3 text-white mt-3">
+                    <div class="text-black">
+                        <p class="p-2">
+                            TEXT HERE
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3 text-white mt-3">
+                    <div class="text-black">
+                        <p class="p-2">
+                            SONGS HERE
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>   
+    </ul>
+{% endblock %}
+
+<!-- RIGHT SIDE NAV BAR -->
+{% block right-content %}
+    <hr>
+    Trending
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <div class="p-3 mb-2 bg-custom text-white">Trending #1</div>
+        </li>
+        <li class="nav-item">
+            <div class="p-3 mb-2 bg-custom text-white">Trending #2</div>
+        </li>
+        <li class="nav-item">
+            <div class="p-3 mb-2 bg-custom text-white">Trending #3</div>
+        </li>
+        <li class="nav-item">
+            <div class="p-3 mb-2 bg-custom text-white">Trending #N</div>
+        </li>
+    </ul>
+{% endblock %}
