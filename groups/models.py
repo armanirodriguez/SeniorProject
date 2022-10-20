@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from music.models import Song
+
 
 
 class Community(models.Model):
@@ -11,3 +13,4 @@ class Post(models.Model):
     poster = models.ForeignKey(User, on_delete=models.CASCADE)
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+    song = models.OneToOneField(Song, on_delete=models.DO_NOTHING)

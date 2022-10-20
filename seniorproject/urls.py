@@ -22,5 +22,4 @@ urlpatterns = [
     path('groups/', include('groups.urls', namespace='groups')),
     path('users/', include('users.urls', namespace='users')),
     path('', views.home, name='home')
-
 ]
