@@ -7,10 +7,8 @@
         <div class="flex-column p-3 text-white bg-dark left-nav-bar">
             <ul class="nav nav-pills flex-column mb-auto m-1">
                 <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'home' %}">
                         <img src="{% static 'images/hearddit-logo.png' %}"hearddit-logo.png width="30" height="30" class="d-inline-block align-top mr-1" alt="">
                         hearddit
-                    </a>
                 </li>
                 <hr>
                 <li class="nav-item">
@@ -30,8 +28,8 @@
             <div class="dropdown">
             <a href="{% url 'groups:home' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <!-- TODO: Fix this hacky solution -->
-                <img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong><a href="{% url 'users:profile' %}">{{user.username}}</a></strong>
+                <a href="{% url 'users:profile' %}"><img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2"></a>
+                <a href="{% url 'users:profile' %}" id="username-link">{{user.username}}</a>
             </a>
             </div>
         </div>
@@ -44,7 +42,7 @@
             <ul class="nav nav-pills flex-column mb-auto">
 
                 <div id="top-btn-wrap" style="width: 100%; text-align: center;">
-                    <input id="top-btn" onclick="topFunction()" type="image" src="/home/static/images/5399087-6.png" class="mb-3 top-button position-fixed" style="bottom:0;" />
+                    <input id="top-btn" onclick="topFunction()" type="image" src="/home/static/images/5399087-5.png" class="mb-3 top-button position-fixed" style="bottom:0;" />
                 </div>
                 {% block mid-content %}
                 {% endblock %}
