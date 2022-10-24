@@ -1,131 +1,42 @@
 {% extends "navbar.html" %}
 {% load static %}
 {% block mid-content %}
+    {% for post in posts %}
     <li class="nav-item mt-3">
         <div class="post-width">
             <div class="p-3 bg-custom text-white">
                 <div class="row link-row">
                     <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">h/GroupName</a>
+                        <a href="#" class="white-link" style="font-size: 10px;">h/{{post.community.name}}</a>
                     </div>
                     <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">u/Username</a>
+                        <a href="#" class="white-link" style="font-size: 10px;">u/{{post.poster.username}}</a>
                     </div>
                     <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">Time Posted</a>
+                        <a href="#" class="white-link" style="font-size: 10px;">{{post.timestamp}}</a>
                     </div>
                 </div>
                 <div class="bg-white rounded-3 text-white mt-3">
                     <div class="text-black">
                         <p class="p-2">
-                            TEXT HERE
+                            {{post.text}}
                         </p>
                     </div>
                 </div>
+                <!--
                 <div class="bg-white rounded-3 text-white mt-3">
                     <div class="text-black">
                         <p class="p-2">
                             SONGS HERE
                         </p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </li>
-    <li class="nav-item mt-3">
-        <div class="post-width">
-            <div class="p-3 bg-custom text-white">
-                <div class="row link-row">
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">h/GroupName</a>
-                    </div>
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">u/Username</a>
-                    </div>
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">Time Posted</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3 text-white mt-3">
-                    <div class="text-black">
-                        <p class="p-2">
-                            TEXT HERE
-                        </p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3 text-white mt-3">
-                    <div class="text-black">
-                        <p class="p-2">
-                            SONGS HERE
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item mt-3">
-        <div class="post-width">
-            <div class="p-3 bg-custom text-white">
-                <div class="row link-row">
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">h/GroupName</a>
-                    </div>
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">u/Username</a>
-                    </div>
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">Time Posted</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3 text-white mt-3">
-                    <div class="text-black">
-                        <p class="p-2">
-                            TEXT HERE
-                        </p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3 text-white mt-3">
-                    <div class="text-black">
-                        <p class="p-2">
-                            SONGS HERE
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item mt-3">
-        <div class="post-width">
-            <div class="p-3 bg-custom text-white">
-                <div class="row link-row">
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">h/GroupName</a>
-                    </div>
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">u/Username</a>
-                    </div>
-                    <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">Time Posted</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3 text-white mt-3">
-                    <div class="text-black">
-                        <p class="p-2">
-                            TEXT HERE
-                        </p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-3 text-white mt-3">
-                    <div class="text-black">
-                        <p class="p-2">
-                            SONGS HERE
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </li>   
-    </ul>
+    {% endfor %}
+       
+</ul>
 {% endblock %}
 
 <!-- RIGHT SIDE NAV BAR -->

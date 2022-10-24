@@ -161,7 +161,7 @@
                     </li>
                     {% for community in communities %}
                         <li>
-                            <a href="{% url 'community' community.name %}">{{ community.name | title }}</a>
+                            <a href="{% url 'groups:community' community.name %}">{{ community.name | title }}</a>
                         </li>
                     {% endfor %}
                 </ul>

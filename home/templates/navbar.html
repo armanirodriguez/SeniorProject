@@ -29,7 +29,8 @@
             <hr>
             <div class="dropdown">
             <a href="{% url 'groups:home' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2">
+                <!-- TODO: Fix this hacky solution -->
+                <img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2">
                 <strong><a href="{% url 'users:profile' %}">{{user.username}}</a></strong>
             </a>
             </div>
