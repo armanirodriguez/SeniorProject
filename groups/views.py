@@ -12,7 +12,7 @@ def home(request):
             post.poster = request.user
             post.save()
     posts = Post.objects.all().order_by('-timestamp')
-    return render(request, 'home.html', {
+    return render(request, 'communityhome.html', {
         'form' : PostForm(),
         'posts' : posts,
         'communities' : Community.objects.all()
