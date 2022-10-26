@@ -5,9 +5,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-5">
-                    <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
+                    <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3" style="background-color: #242222; color: white;">
                         <div class="card-header justify-content-center">
-                          <h3 class="font-weight-light my-1 text-center">Sign In</h3>
+                          <h3 class="font-weight-bold my-1 text-center">Sign In</h3>
                         </div>
                         {% if form.errors %}
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -21,14 +21,14 @@
                                 </button>
                             </div>
                         {% endif %}
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: #242222;">
                             <form method="POST">
                                 {% csrf_token %}
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group">
 
-                                            <label class="small mb-1">Username</label>
+                                            <label class="small mb-1" style="font-weight:bold; color: white;">Username</label>
                                             {{ form.username }}
                                         </div>
                                     </div>
@@ -36,7 +36,7 @@
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group">
-                                          <label class="small mb-1">Password</label>
+                                          <label class="small mb-1" style="font-weight:bold; color: white" >Password</label>
                                           {{ form.password }}
                                         </div>
                                     </div>
@@ -46,14 +46,14 @@
                                         <div class="form-group">
                                             <!-- Add a Remember me functionality -->
                                             {{ form.remember_me }}
-                                            <label> Remember me</label>
+                                            <label style="color: white"> Remember me</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group mt-0 mb-1">
-                                          <button name="login" class="col-md-12 btn btn-dark" id="login">Sign in</button>
+                                          <button name="login" class="col-md-12 btn btn-success" id="login" style="font-weight: bold">Sign in</button>
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +62,6 @@
                         <div class="card-footer text-center">
                             <div class="small">
                                 <a href="{% url 'users:register' %}">Don't have an account yet? Go to signup</a><br>
-                                <a href="#"><i>Forgot Password?</i></a>
                             </div>
                         </div>
                     </div>
