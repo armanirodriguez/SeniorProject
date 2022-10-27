@@ -14,18 +14,20 @@
 <br>
 
 {% if songs %}
-<table>
-    <tbody>
-        <tr>
-            {% for song in songs %}
-                <td>
-                    <iframe src="https://open.spotify.com/embed/track/{{song}}" width="100" height="400"
-                    frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                </td>
-            {% endfor %}
-        </tr>
-    </tbody>
-</table>
+    <table>
+    <td>
+    {% for song in songs %}
+
+    <tr>
+    <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="750" height="160" 
+    frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </tr>
+        
+    {% endfor %}
+    </td>
+    </table>
+
+
 {% endif %}
 
 {% endblock content %}
