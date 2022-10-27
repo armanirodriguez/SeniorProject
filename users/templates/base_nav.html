@@ -1,0 +1,59 @@
+{% extends "base_root.html" %}
+{% load static %}
+{% block content %}
+<div class="row p-0 m-0">
+    {% block left-bar %}
+    <div class="col-3 p-0 " style="min-width: 200px; max-width: 250px">
+        <div class="flex-column p-3 text-white bg-dark left-nav-bar" style="height:100%">
+            <ul class="nav nav-pills flex-column mb-auto m-1">
+                <li class="nav-item">
+                        <img src= "{% static 'images/hearddit-logo.png' %}" width="30" height="30" class="d-inline-block align-top mr-1" alt="">
+                        hearddit
+                </li>
+                <hr>
+                <li class="nav-item">
+                    <a id="home-btn" href="{% url 'home' %}" class="nav-link text-white" aria-current="page">
+                        <img src="" alt="" class="left-nav-img">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a id ="comm-btn" href="{% url 'groups:home' %}" class="nav-link text-white">
+                    <img src="" alt="" class="left-nav-img">
+                    Groups
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <a href="{% url 'groups:home' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- TODO: Fix this hacky solution -->
+                        <a href="{% url 'users:profile' %}"><img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2"></a>
+                        <a href="{% url 'users:profile' %}" id="username-link">{{user.username}}</a>
+                    </a>
+                </div>
+            {% else %}
+                <a href="{% url 'users:login' %}">Log-In</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block mid-bar %}
+    <div class="col p-0">
+        <div id="overflow-wrap" style="height:100vh; width:100%; overflow-y: scroll;">
+            <ul class="nav nav-pills flex-column mb-auto">
+                {% block mid-content %}
+                {% endblock %}
+            </ul>
+
+        </div>
+    </div>
+    {% endblock %}
+
+</div>
+<script src="{% static 'js/topbutton.js' %}"></script>
+<script src="{% static 'js/sidebutton.js' %}"></script>
+
+{% endblock %}
