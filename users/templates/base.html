@@ -18,16 +18,15 @@
   <div class="container p-3 my-3">
     <div class="row">
       <div class="col-md-12">
-        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #02baff;border-radius: 9px; ">
-          <a href="/" class="nav-item nav-link" style="font-weight: bold;">Home</a>
+        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #050505 ;border-radius: 9px; margin: 0px 16px 0px;">
+          <a href="/" class="nav-item nav-link" style="font-weight: bold;"> <button class="btn btn-dark" style="font-weight: bold"> Home </button> </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ml-auto">
                   {% if user.is_authenticated %}
-                    <a href="{% url 'users:profile' %}" class="nav-item nav-link">Profile</a>
-                    <a href="{% url 'users:logout' %}" class="nav-item nav-link">Logout</a>
+                    <a href="{% url 'users:logout' %}" class="nav-item nav-link"> <button class="btn btn-dark" style="font-weight: bold; background-color"> Logout </button></a>
                   {% else %}
                   {% endif %}
 
