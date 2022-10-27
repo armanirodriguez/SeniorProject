@@ -28,12 +28,13 @@
             <hr>
             {% if user.is_authenticated %}
                 <div class="dropdown">
-                    <a href="{% url 'groups:home' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="{% url 'groups:home' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false"></a>
                         <!-- TODO: Fix this hacky solution -->
-                        <a href="{% url 'users:profile' %}"><img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2"></a>
-                        <a href="{% url 'users:profile' %}" class="text-white text-decoration-none" id="username-link">{{user.username}}</a>
-                        <a href="{% url 'users:logout' %}"><span class="p-2"><img src="{% static 'images/logout.svg' %}"/></span></a>
-                    </a>
+                        <span id="profile-links">
+                            <a href="{% url 'users:profile' %}"><img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2"></a>
+                            <a href="{% url 'users:profile' %}" class="text-white text-decoration-none" id="username-link">{{user.username}}</a>
+                        </span>
+                            <a href="{% url 'users:logout' %}"><span class="p-2"><img src="{% static 'images/logout.svg' %}"/></span></a>
                 </div>
             {% else %}
                 <a class="btn btn-warning" href="{% url 'users:login' %}">Log-In</a>
@@ -74,6 +75,6 @@
 {% block topbutton %}
 <script src="{% static 'js/topbutton.js' %}"></script>
 {% endblock topbutton %}
-<script src="{% static 'js/sidebutton.js' %}"></script>
+<script src="/static/js/sidebutton.js?v4"></script>
 
 {% endblock %}

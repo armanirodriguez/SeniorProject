@@ -7,7 +7,7 @@
             <div class="p-3 bg-custom text-white">
                 <div class="row link-row">
                     <div class="col-4 link-col">
-                        <a href="{% url 'groups:community' post.community.name %}" class="white-link" style="font-size: 10px;">h/{{post.community.name}}</a>
+                        <a href="{% url 'groups:community' post.community.name %}" onclick="document.getElementById('comm-btn').click()" class="white-link" style="font-size: 10px;">h/{{post.community.name}}</a>
                     </div>
                     <div class="col-4 link-col">
                         <a href="#" class="white-link" style="font-size: 10px;">u/{{post.poster.username}}</a>
