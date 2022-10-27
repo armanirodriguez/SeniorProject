@@ -1,4 +1,15 @@
 {% extends "root_navbar.html" %}
 {% block content %}
-wow
+<form method='post' class="form" action="{% url 'search:search' %}">
+    {% csrf_token %}
+    <br>
+    <center>
+        <h2>Search</h2>
+        <p>Query: {{ form.query }} </p>
+        <button type="submit">
+            Search
+        </button>
+    </center>
+</form>
+<br>
 {% endblock content %}
