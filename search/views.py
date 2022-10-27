@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import Http404
 from .forms import SearchForm
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
-
+def boom():
+    return 1/0
 
 def search(request):
     if request.method == 'POST':
@@ -18,4 +21,7 @@ def search(request):
         return render(request, 'search.html', {'form': form})
 
 def search_songs(query):
-    return []
+    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='616f55f94a904037a1eb6bdfbfa96d95', client_secret='2e262cfa37904ebeb74d43ff6903c9de'))
+    result = sp.search(q=query, type="track", limit=10)['tracks']['items']
+    tracks = [item['id'] for item in result]
+    return tracks
