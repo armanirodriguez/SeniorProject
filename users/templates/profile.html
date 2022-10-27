@@ -1,5 +1,5 @@
-{% extends "base_nav.html" %}
-{% block title %}Profile Page{% endblock title %}
+{% extends "root_navbar.html" %}
+{% block title %}Profile{% endblock title %}
 {% block mid-content %}
 <div class="container" style="margin-top: 10px;">
     <div class="main-body">
@@ -11,7 +11,7 @@
                             <img src="/users{{ user.profile.avatar.url }}" alt="Placeholder" class="rounded-circle" height="150" width="150">
                             <div class="mt-3">
                                 <h4 style="color: white; font-weight: bold">{{ user.first_name }} {{user.last_name}}</h4>
-                                <div class="text">{{ user.profile.bio }}</div>
+                                <div class="text-secondary">{{ user.profile.bio }}</div>
                                 <div class="mt-md-4"></div>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#profileModal" style="font-weight: bold; font-size: 13px; ">
                                     Edit Profile
@@ -120,3 +120,9 @@
     </div>
 </div>
 {% endblock mid-content %}
+
+{% block topbutton %}
+{% endblock topbutton %}
+
+{% block right-bar %}
+{% endblock right-bar %}

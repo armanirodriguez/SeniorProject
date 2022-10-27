@@ -1,17 +1,16 @@
-{% extends "layout.html" %}
-{% block content %}
-<h1>{{ community.name }}</h1>
-<div class="card text-white bg-secondary">
-    
+{% extends "root_navbar.html" %}
+{% block title %}Communities{% endblock title %}
+{% block mid-content %}
+<div class="card text-white bg-secondary m-3">
     <div class="card-header">
-        <h4> Create A Post </h4>
+        <h3>New Post</h3>
     </div>
     <div class="card-body">
         {% if user.is_authenticated %}
             <form action = "" method = "post">
                 {% csrf_token %}
                 {{form.as_p }}
-                <input type="submit" value=Post>
+                <input type="submit" class="btn btn-primary" value=Post>
             </form>
         {% else %}
             <h5> You must login to post </h5>
@@ -19,17 +18,45 @@
     </div>
 </div>
 
-{% for post in posts %}
-<div class="card text-white bg-dark">
-    <div class="card-header">
-      Posted: {{ post.timestamp }} In Community {{ post.community.name }}
+{% if community.name %}
+  {% for post in posts %}
+  <div class="card text-white bg-dark m-3">
+      <div class="card-header">
+        Posted: {{ post.timestamp }} by {{post.poster.username}}
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0 text-white">
+          <p> {{ post.text }} </p>
+        </blockquote>
+      </div>
     </div>
-    <div class="card-body">
-      <blockquote class="blockquote mb-0 text-white">
-        <p> {{ post.text }} </p>
-        <footer class="blockquote-footer"> {{post.poster.username}} </footer>
-      </blockquote>
+  {% endfor %}
+{% else %}
+  <div class="card text-white bg-secondary m-3">
+    <div class="card-body" style="text-align:center">
+      Welcome to the communities page. Select a community from the right navigation bar to get started.
     </div>
   </div>
-{% endfor %}
-{% endblock content %}
+{% endif %}
+{% endblock mid-content %}
+
+{% block right-content %}
+      <hr>
+    <a href="{% url 'groups:home' %}" class="text-decoration-none text-white">Communities</a>
+    <hr>
+      <div id="community-list-wrap">
+        <ul class="nav nav-pills flex-column mb-auto m-1">
+          {% for community in communities %}
+          <a class="text-decoration-none text-white" href="{% url 'groups:community' community.name %}">
+          <li class="nav-item p-2 text-white rounded mb-1" style="background-color: #02baff;">
+            {{ community.name | title }}
+          </li>
+          </a>
+          {% endfor %}
+        </ul>
+        <ul class="nav nav-pills flex-column mb-auto m-1">
+            <li class="nav-item">
+            </li>
+        </ul>
+    </div>
+{% endblock %}

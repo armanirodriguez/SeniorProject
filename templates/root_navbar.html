@@ -21,7 +21,7 @@
                 <li>
                     <a id ="comm-btn" href="{% url 'groups:home' %}" class="nav-link text-white">
                     <img src="{% static 'images/people-fill.svg' %}" alt="" class="left-nav-img">
-                    Groups
+                    Communities
                     </a>
                 </li>
             </ul>
@@ -31,11 +31,12 @@
                     <a href="{% url 'groups:home' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <!-- TODO: Fix this hacky solution -->
                         <a href="{% url 'users:profile' %}"><img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2"></a>
-                        <a href="{% url 'users:profile' %}" id="username-link">{{user.username}}</a>
+                        <a href="{% url 'users:profile' %}" class="text-white text-decoration-none" id="username-link">{{user.username}}</a>
+                        <a href="{% url 'users:logout' %}"><span class="p-2"><img src="{% static 'images/logout.svg' %}"/></span></a>
                     </a>
                 </div>
             {% else %}
-                <a href="{% url 'users:login' %}">Log-In</a>
+                <a class="btn btn-warning" href="{% url 'users:login' %}">Log-In</a>
             {% endif %}
         </div>
     </div>
@@ -60,7 +61,7 @@
     {% block right-bar %}
     <!-- RIGHT SIDE NAV BAR -->
     <div class="col-3 p-0 right-nav-wrap bg-dark">
-        <div class="flex-column p-3 text-white bg-dark right-nav-bar" style="max-width: 250px; float:left">
+        <div class="flex-column p-3 text-white bg-dark right-nav-bar" style="max-width: 250px; float:left; overflow-y: scroll;">
             <div class="input-group col-md-4">
                 <input class="form-control py-2" placeholder="Search" type="search">
           </div>
@@ -70,7 +71,9 @@
     </div>
     {% endblock %}
 </div>
+{% block topbutton %}
 <script src="{% static 'js/topbutton.js' %}"></script>
+{% endblock topbutton %}
 <script src="{% static 'js/sidebutton.js' %}"></script>
 
 {% endblock %}

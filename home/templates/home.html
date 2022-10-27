@@ -1,4 +1,5 @@
 {% extends "root_navbar.html" %}
+{% block title %}Home{% endblock title %}
 {% block mid-content %}
     {% for post in posts %}
     <li class="nav-item mt-3">
@@ -6,7 +7,7 @@
             <div class="p-3 bg-custom text-white">
                 <div class="row link-row">
                     <div class="col-4 link-col">
-                        <a href="#" class="white-link" style="font-size: 10px;">h/{{post.community.name}}</a>
+                        <a href="{% url 'groups:community' post.community.name %}" class="white-link" style="font-size: 10px;">h/{{post.community.name}}</a>
                     </div>
                     <div class="col-4 link-col">
                         <a href="#" class="white-link" style="font-size: 10px;">u/{{post.poster.username}}</a>
@@ -45,16 +46,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <div class="p-3 mb-2 bg-custom text-white">Trending #1</div>
-        </li>
-        <li class="nav-item">
-            <div class="p-3 mb-2 bg-custom text-white">Trending #2</div>
-        </li>
-        <li class="nav-item">
-            <div class="p-3 mb-2 bg-custom text-white">Trending #3</div>
-        </li>
-        <li class="nav-item">
-            <div class="p-3 mb-2 bg-custom text-white">Trending #N</div>
+            <div class="p-3 mb-2 bg-custom text-white">Placeholder</div>
         </li>
     </ul>
 {% endblock %}

@@ -30,7 +30,7 @@ def community(request, community_name):
             post.poster = request.user
             post.save()
     posts = Post.objects.all().filter(community=community).order_by('-timestamp')
-    return render(request, 'community.html', {
+    return render(request, 'communityhome.html', {
         'community' : community,
         'form' : PostForm(initial={'community' : community}),
         'posts' : posts,
