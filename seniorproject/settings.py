@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'home',
     'groups',
     'users',
-    'music'
+    'music',
+    'search'
 ]
 
 MIDDLEWARE = [
