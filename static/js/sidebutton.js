@@ -16,7 +16,6 @@ function setActiveLink($el) {
 
 function removeActiveLink() {
     const activeMenuItem = $('.nav-link[href="' + localStorage.getItem('active-menu-item') + '"]').first();
-    activeMenuItem && setActiveLink(activeMenuItem);
     activeMenuItem.removeClass('active');
     localStorage.setItem('active-menu-item', "");
 }

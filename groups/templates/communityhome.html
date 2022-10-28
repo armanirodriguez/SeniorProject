@@ -1,6 +1,8 @@
 {% extends "root_navbar.html" %}
+{% load static %}
 {% block title %}Communities{% endblock title %}
 {% block mid-content %}
+<link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
 <div class="card text-white bg-secondary m-3">
     <div class="card-header">
         <h3>New Post</h3>
@@ -48,7 +50,7 @@
         <ul class="nav nav-pills flex-column mb-auto m-1">
           {% for community in communities %}
           <a class="text-decoration-none text-white" href="{% url 'groups:community' community.name %}">
-          <li class="nav-item p-2 text-white rounded mb-1" style="background-color: #02baff;">
+          <li id="community-{{community.name}}" class="community-link nav-item p-2 text-white rounded mb-1" style="background-color: #02baff;">
             {{ community.name | title }}
           </li>
           </a>
@@ -59,4 +61,5 @@
             </li>
         </ul>
     </div>
+<script src="{% static 'groups/js/right-buttons.js' %}"></script>
 {% endblock %}

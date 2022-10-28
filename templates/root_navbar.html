@@ -9,7 +9,7 @@
             <ul class="nav nav-pills flex-column mb-auto m-1">
                 <li class="nav-item">
                         <img src="{% static 'images/hearddit-logo.png' %}" width="30" height="30" class="d-inline-block align-top mr-1" alt="">
-                        hearddit
+                        herddit
                 </li>
                 <hr>
                 <li class="nav-item">
@@ -37,7 +37,7 @@
                             <a href="{% url 'users:logout' %}"><span class="p-2"><img src="{% static 'images/logout.svg' %}"/></span></a>
                 </div>
             {% else %}
-                <a class="btn btn-warning" href="{% url 'users:login' %}">Log-In</a>
+                <a onclick="removeActiveLink()" class="btn btn-warning" href="{% url 'users:login' %}">Log-In</a>
             {% endif %}
         </div>
     </div>
@@ -75,6 +75,6 @@
 {% block topbutton %}
 <script src="{% static 'js/topbutton.js' %}"></script>
 {% endblock topbutton %}
-<script src="/static/js/sidebutton.js?v4"></script>
+<script src="/static/js/sidebutton.js?v5"></script>
 
 {% endblock %}
