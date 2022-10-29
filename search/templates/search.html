@@ -1,0 +1,41 @@
+{% extends "root_navbar.html" %}
+{% block mid-content %}
+<form method='post' class="form" action="{% url 'search:search' %}">
+    {% csrf_token %}
+    <br>
+    <center>
+        <h2>Song Search</h2>
+        <p>{{ form.query }} 
+        <button type="submit">
+            GO
+        </button>
+    </p>
+    </center>
+</form>
+<br>
+
+{% if songs %}
+<center>
+    <table>
+    <td>
+    {% for song in songs %}
+
+    <tr>
+    <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="750" height="160" 
+    frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </tr>
+
+    <tr>
+        <p>Song ID for Testing: {{ song }}</p>
+    </tr>
+
+    {% endfor %}
+    
+    </td>
+    </table>
+</center>
+{% endif %}
+
+
+
+{% endblock mid-content %}

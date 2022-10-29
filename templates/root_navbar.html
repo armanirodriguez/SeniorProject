@@ -24,6 +24,12 @@
                     Communities
                     </a>
                 </li>
+                <li>
+                    <a id ="comm-btn" href="{% url 'search:search' %}" class="nav-link text-white">
+                    <img src="{% static 'images/search.svg' %}" alt="" class="left-nav-img">
+                    Song Search
+                    </a>
+                </li>
             </ul>
             <hr>
             {% if user.is_authenticated %}
