@@ -1,4 +1,5 @@
 {% extends "root_navbar.html" %}
+{% block title %}Song Search{% endblock title %}
 {% block mid-content %}
 <form method='post' class="form" action="{% url 'search:search' %}">
     {% csrf_token %}
@@ -6,7 +7,7 @@
     <center>
         <h2>Song Search</h2>
         <p>{{ form.query }} 
-        <button type="submit">
+        <button type="submit" class="btn btn-secondary">
             GO
         </button>
     </p>
@@ -21,12 +22,11 @@
     {% for song in songs %}
 
     <tr>
-    <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="750" height="160" 
+    <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
     frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
     </tr>
 
     <tr>
-        <p>Song ID for Testing: {{ song }}</p>
     </tr>
 
     {% endfor %}
@@ -39,3 +39,6 @@
 
 
 {% endblock mid-content %}
+
+{% block right-bar %}
+{% endblock right-bar %}

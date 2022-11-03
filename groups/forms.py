@@ -3,6 +3,7 @@ from django import forms
 from .models import Community, Post
 
 class PostForm(forms.ModelForm):
+    post_flag = forms.BooleanField(widget=forms.HiddenInput(), initial=True)
     community = forms.ModelChoiceField(queryset=Community.objects.all(),empty_label=None)
     class Meta:
         model = Post

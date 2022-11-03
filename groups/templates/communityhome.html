@@ -1,9 +1,18 @@
 {% extends "root_navbar.html" %}
-{% load static %}
 {% block title %}Communities{% endblock title %}
+{% load static %}
 {% block mid-content %}
+<style>
+  #div2 {
+  width: 500px;
+  margin-bottom: 12px;
+}
+#div2 {
+  overflow-x: scroll;
+}
+</style>
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
-<div class="card text-white bg-secondary m-3">
+<div class="card text-white bg-secondary m-3" style="min-width: 500px">
     <div class="card-header">
         <h3>New Post</h3>
     </div>
@@ -14,6 +23,30 @@
                 {{form.as_p }}
                 <input type="submit" class="btn btn-primary" value=Post>
             </form>
+            <form method="post" class="form" action="">
+              {% csrf_token %}
+              <center>
+                  <h2>Song Search</h2>
+                  {{searchForm}}
+                  <input type="submit" class="btn btn-primary" value=GO>
+               </p>
+              </center>
+            </form>
+            {% if songs %}
+              <center>
+                <div id="div2" style="text-align: center">
+                    <table>
+                      {% for song in songs %}
+                      <td style="border-left: 4px solid #616161; border-right: 4px solid #616161; padding: 10px;">
+                          <p>{{song}}</p>
+                          <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
+                          frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                      </td>
+                      {% endfor %}
+                    </table>
+                    </div>
+              </center>
+            {% endif %}
         {% else %}
             <h5> You must login to post </h5>
         {% endif %}
