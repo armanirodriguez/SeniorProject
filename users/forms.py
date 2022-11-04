@@ -6,16 +6,16 @@ from .models import Profile
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(max_length=100,
                                required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 10px'}))
     email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 10px'}))
 
     class Meta:
         model = User
         fields = ['username', 'email']
 
 class UpdateProfileForm(forms.ModelForm):
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={'id': 'choose-file-id', 'class': 'form-control-file'}))
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={'id': 'choose-file-id', 'class': 'form-control-file', 'style': 'font-size: 10px'}))
     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
 
     class Meta:
