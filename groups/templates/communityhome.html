@@ -37,11 +37,11 @@
                 <div id="div2" style="text-align: center">
                     <table>
                       {% for song in songs %}
-                      <td style="border-left: 4px solid #616161; border-right: 4px solid #616161; padding: 10px;">
+                      <tr style="border-left: 4px solid #616161; border-right: 4px solid #616161; padding: 10px;">
                           <p>{{song}}</p>
                           <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
                           frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                      </td>
+                      </tr>
                       {% endfor %}
                     </table>
                     </div>
@@ -60,9 +60,13 @@
         Posted: {{ post.timestamp }} by {{post.poster.username}}
       </div>
       <div class="card-body">
-        <blockquote class="blockquote mb-0 text-white">
+        <blockquote class="blockquote mb-0 text-gray">
           <p> {{ post.text }} </p>
         </blockquote>
+          {% if post.song %}
+            <iframe src="https://open.spotify.com/embed/track/{{ post.song.song_id }}" width="500" height="100" 
+            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          {% endif %}
       </div>
     </div>
   {% endfor %}

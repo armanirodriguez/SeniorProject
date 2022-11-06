@@ -21,6 +21,12 @@
                         <p class="p-2">
                             {{post.text}}
                         </p>
+                        <center>
+                        {% if post.song %}
+                            <iframe src="https://open.spotify.com/embed/track/{{ post.song.song_id }}" width="500" height="100" 
+                            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        {% endif %}
+                        </center>
                     </div>
                 </div>
                 <!--
