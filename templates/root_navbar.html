@@ -43,11 +43,7 @@
                             <a onclick="clearLocal();" href="{% url 'users:logout' %}"><span class="p-2"><img src="{% static 'images/logout.svg' %}"/></span></a>
                 </div>
             {% else %}
-<<<<<<< HEAD
-                <a onclick="removeActiveLink(); clearLocal();" class="btn btn-warning" href="{% url 'users:login' %}">Log-In</a>
-=======
-                <a onclick="removeActiveLink()" style = "font-weight: bold" class="btn btn-success" href="{% url 'users:login' %}">Log-In</a>
->>>>>>> 3caa15d6314c4797cd95890976e4ae67c681a4c1
+                <a onclick="removeActiveLink()" class="btn btn-warning" href="{% url 'users:login' %}">Log-In</a>
             {% endif %}
         </div>
     </div>

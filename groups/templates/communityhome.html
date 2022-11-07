@@ -15,7 +15,8 @@
                 <div style="color: white">
                   {{form.as_p }}
                 </div>
-                <input type="submit" class="btn btn-primary" value=Post>
+                <input type="text" id="songs_input_id" name="songs_input" value="" style="display: none">
+                <input onclick="clearLocal()" type="submit" class="btn btn-primary" value=Post>
             </form>
             <form method="post" class="form" action="">
               {% csrf_token %}
