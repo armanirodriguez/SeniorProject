@@ -2,16 +2,8 @@
 {% block title %}Communities{% endblock title %}
 {% load static %}
 {% block mid-content %}
-<style>
-  #div2 {
-  width: 500px;
-  margin-bottom: 12px;
-}
-#div2 {
-  overflow-x: scroll;
-}
-</style>
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
+<div style="width: 100%; overflow-x:hidden">
 <div class="card text-white bg-secondary m-3" style="min-width: 500px">
     <div class="card-header">
         <h3>New Post</h3>
@@ -34,17 +26,19 @@
             </form>
             {% if songs %}
               <center>
-                <div id="div2" style="text-align: center">
-                    <table>
-                      {% for song in songs %}
-                      <td style="border-left: 4px solid #616161; border-right: 4px solid #616161; padding: 10px;">
-                          <p>{{song}}</p>
-                          <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
-                          frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                      </td>
-                      {% endfor %}
+                <div class="container" style="height: 300px; width: 500px; overflow-x:scroll; text-align: center;">
+                  <table>
+                    {% for song in songs %}
+                    <td style="padding-left:10px; padding-right: 10px;">
+                        <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
+                        frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        <input type="checkbox" id="{{song}}" class="box btn-check" />
+                        <label class="btn btn-outline-primary" for="{{song}}">Add</label>
+                    </td>
+                    {% endfor %}
                     </table>
-                    </div>
+                  </div>
+                </div>  
               </center>
             {% endif %}
         {% else %}
@@ -94,5 +88,8 @@
             </li>
         </ul>
     </div>
+</div>
 <script src="{% static 'groups/js/right-buttons.js' %}"></script>
+<script src="{% static 'groups/js/checkbox.js' %}"></script>
+
 {% endblock %}
