@@ -6,16 +6,16 @@ from .models import Profile
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(max_length=100,
                                required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 10px'}))
     email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+                             widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 10px'}))
 
     class Meta:
         model = User
         fields = ['username', 'email']
 
 class UpdateProfileForm(forms.ModelForm):
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={'id': 'choose-file-id', 'class': 'form-control-file'}))
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={'id': 'choose-file-id', 'class': 'form-control-file', 'style': 'font-size: 10px'}))
     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
 
     class Meta:
@@ -25,16 +25,16 @@ class UpdateProfileForm(forms.ModelForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=100,
                                required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
-                                                             'class': 'form-control',
+                               widget=forms.TextInput(attrs={'class': 'form-control',
+                                                             'style': 'border-radius: 15px;'
                                                              }))
     password = forms.CharField(max_length=50,
                                required=True,
-                               widget=forms.PasswordInput(attrs={'placeholder': 'Password',
-                                                                 'class': 'form-control',
+                               widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                                  'data-toggle': 'password',
                                                                  'id': 'password',
                                                                  'name': 'password',
+                                                                 'style': 'border-radius: 15px;'
                                                                  }))
     remember_me = forms.BooleanField(required=False)
 
@@ -46,33 +46,33 @@ class RegisterForm(UserCreationForm):
     # fields we want to include and customize in our form
     first_name = forms.CharField(max_length=100,
                                  required=True,
-                                 widget=forms.TextInput(attrs={'placeholder': 'First Name',
-                                                               'class': 'form-control',
+                                 widget=forms.TextInput(attrs={'class': 'form-control',
+                                                               'style': 'border-radius: 15px;'
                                                                }))
     last_name = forms.CharField(max_length=100,
                                 required=True,
-                                widget=forms.TextInput(attrs={'placeholder': 'Last Name',
+                                widget=forms.TextInput(attrs={'style': 'border-radius: 15px;',
                                                               'class': 'form-control',
                                                               }))
     username = forms.CharField(max_length=100,
                                required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
+                               widget=forms.TextInput(attrs={'style': 'border-radius: 15px;',
                                                              'class': 'form-control',
                                                              }))
     email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'placeholder': 'Email',
+                             widget=forms.TextInput(attrs={'style': 'border-radius: 15px;',
                                                            'class': 'form-control',
                                                            }))
     password1 = forms.CharField(max_length=50,
                                 required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Password',
+                                widget=forms.PasswordInput(attrs={'style': 'border-radius: 15px;',
                                                                   'class': 'form-control',
                                                                   'data-toggle': 'password',
                                                                   'id': 'password',
                                                                   }))
     password2 = forms.CharField(max_length=50,
                                 required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password',
+                                widget=forms.PasswordInput(attrs={'style': 'border-radius: 15px;',
                                                                   'class': 'form-control',
                                                                   'data-toggle': 'password',
                                                                   'id': 'password',

@@ -8,7 +8,7 @@
     <div class="card-header">
         <h3>New Post</h3>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="color: #636261">
         {% if user.is_authenticated %}
             <form action = "" method = "post">
                 {% csrf_token %}
@@ -21,8 +21,6 @@
                   <h2>Song Search</h2>
                   {{searchForm}}
                   <input type="submit" class="btn btn-primary" value=GO>
-               </p>
-              </center>
             </form>
             {% if songs %}
               <center>
@@ -49,20 +47,24 @@
 
 {% if community.name %}
   {% for post in posts %}
-  <div class="card text-white bg-dark m-3">
+  <div class="card text-black m-3" style="background-color: #e3e3e3; border-radius: 9px; border-color: #e3e3e3">
       <div class="card-header">
         Posted: {{ post.timestamp }} by {{post.poster.username}}
       </div>
       <div class="card-body">
-        <blockquote class="blockquote mb-0 text-white">
+        <blockquote class="blockquote mb-0 text-gray">
           <p> {{ post.text }} </p>
         </blockquote>
+          {% if post.song %}
+            <iframe src="https://open.spotify.com/embed/track/{{ post.song.song_id }}" width="500" height="100" 
+            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          {% endif %}
       </div>
     </div>
   {% endfor %}
 {% else %}
-  <div class="card text-white bg-secondary m-3">
-    <div class="card-body" style="text-align:center">
+  <div class="card shadow text-black m-3" style="color: white; border-radius: 9px; border-color: #e3e3e3">
+    <div class="card-body" style="text-align:center; font-weight: bold; color: #636261">
       Welcome to the communities page. Select a community from the right navigation bar to get started.
     </div>
   </div>

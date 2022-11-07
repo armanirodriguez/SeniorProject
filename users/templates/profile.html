@@ -5,13 +5,13 @@
     <div class="main-body">
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
-                <div class="card" style="background-color: #242222; border-radius: 9px;">
+                <div class="card shadow" style="border-radius: 9px; border-color: #e3e3e3">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="/users{{ user.profile.avatar.url }}" alt="Placeholder" class="rounded-circle" height="150" width="150">
                             <div class="mt-3">
-                                <h4 style="color: white; font-weight: bold">{{ user.first_name }} {{user.last_name}}</h4>
-                                <div class="text-secondary">{{ user.profile.bio }}</div>
+                                <h4 style="color: black; font-weight: bold">{{ user.first_name }} {{user.last_name}}</h4>
+                                <div class="text-secondary" style="color: black;">{{ user.profile.bio }}</div>
                                 <div class="mt-md-4"></div>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#profileModal" style="font-weight: bold; font-size: 13px; ">
                                     Edit Profile
@@ -22,11 +22,11 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="card mb-3" style="background-color: #242222; border-radius: 9px;">
-                    <div class="card-body" style="color: white">
+                <div class="card mb-3 shadow" style="background-color: white; border-radius: 9px; border-color: #e3e3e3">
+                    <div class="card-body" style="color: black">
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0" style="font-weight: bold">Username</h6>
+                                <h6 class="mb-0" style="font-weight: bold;">Username</h6>
                             </div>
                             <div class="col-sm-9 text-secondary" style="font-weight: bold; color: #696766">
                                 {{ user.username }}
@@ -46,7 +46,7 @@
 
                 <div class="row gutters-sm">
                     <div class="col-sm-12 mb-3">
-                        <div class="card h-100" style="background-color: #242222; border-radius: 9px; color: white">
+                        <div class="card h-100 shadow" style="background-color: white; border-radius: 9px; border-color: #e3e3e3">
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3" style="font-weight: bold">Placeholder</h6>
                                 <div class="text" style="color: #696766">Stats or other profile elements can go here</div>
@@ -57,7 +57,7 @@
 
                 <div>
                     {% if user.is_authenticated %}
-                      <a href="{% url 'users:logout' %}"> <button class="btn btn-dark" style="font-weight: bold; border-raidus: 13px; font-size: 11px;
+                      <a href="{% url 'users:logout' %}"> <button class="btn btn-secondary" style="font-weight: bold; border-raidus: 13px; font-size: 11px;
                         "> Logout </button></a>
                     {% else %}
                     {% endif %}
@@ -73,8 +73,8 @@
 
 <div id="profileModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog" role="form">
-        <h3 class="modal-title">Edit Profile</h3>
-        <div class="modal-content">
+        <div class="modal-content" style="font-size: 12px; font-weight: bold">
+            <h3 class="modal-title" style="color: black; margin-left: 15px; margin-top: 15px; margin-bottom: -10px; font-weight: bold;">Edit Profile</h3>
             {% if user_form.errors %}
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <div id="form_errors">
@@ -93,24 +93,25 @@
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label class="small mb-1">Username:</label>
+                            <label class="small mb-1">Username</label>
                             {{ user_form.username }}
-                            <label class="small mb-1">Email:</label>
+                            <label class="small mb-1">Email</label>
                             {{ user_form.email }}
                         </div>
                         <div class="form-group">
                             <hr>
-                            <label class="small mb-1">Change Avatar:</label>
+                            <label class="small mb-1">Change Avatar </label> 
+                            <br>
                             {{ profile_form.avatar }}
                         </div>
                         <div class="form-group">
-                            <label class="small mb-1">Bio:</label>
+                            <label class="small mb-1">Bio</label>
                             {{ profile_form.bio }}
                         </div>
                         <br><br>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
-                            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+                            <button type="submit" class="btn btn-primary btn-lg" style="font-size: 10px">Save Changes</button>
+                            <button type="reset" class="btn btn-secondary btn-lg" style="font-size: 10px">Reset</button>
                         </div>
                     </form>
                 </div>

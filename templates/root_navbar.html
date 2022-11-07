@@ -7,8 +7,8 @@
     <div class="col p-0 " style="min-width: 200px; max-width: 250px">
         <div class="flex-column p-3 text-white bg-dark left-nav-bar">
             <ul class="nav nav-pills flex-column mb-auto m-1">
-                <li class="nav-item">
-                        <img src="{% static 'images/hearddit-logo.png' %}" width="30" height="30" class="d-inline-block align-top mr-1" alt="">
+                <li class="nav-item" style="font-weight: bold; font-size: 20px;">
+                        <img src="{% static 'images/hearddit-logo.png' %}" width="30" height="30" class="d-inline-block align-top mr-1" alt="" style="margin-right: 6px;">
                         herddit
                 </li>
                 <hr>
@@ -43,7 +43,11 @@
                             <a onclick="clearLocal();" href="{% url 'users:logout' %}"><span class="p-2"><img src="{% static 'images/logout.svg' %}"/></span></a>
                 </div>
             {% else %}
+<<<<<<< HEAD
                 <a onclick="removeActiveLink(); clearLocal();" class="btn btn-warning" href="{% url 'users:login' %}">Log-In</a>
+=======
+                <a onclick="removeActiveLink()" style = "font-weight: bold" class="btn btn-success" href="{% url 'users:login' %}">Log-In</a>
+>>>>>>> 3caa15d6314c4797cd95890976e4ae67c681a4c1
             {% endif %}
         </div>
     </div>
