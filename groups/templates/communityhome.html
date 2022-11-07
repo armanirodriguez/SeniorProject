@@ -12,22 +12,26 @@
         {% if user.is_authenticated %}
             <form action = "" method = "post">
                 {% csrf_token %}
-                {{form.as_p }}
+                <div style="color: white">
+                  {{form.as_p }}
+                </div>
                 <input type="submit" class="btn btn-primary" value=Post>
             </form>
             <form method="post" class="form" action="">
               {% csrf_token %}
               <center>
+                <div style="color: white;">
                   <h2>Song Search</h2>
                   {{searchForm}}
                   <input type="submit" class="btn btn-primary" value=GO>
+                </div>
             </form>
             {% if songs %}
               <center>
-                <div class="container" style="height: 300px; width: 500px; overflow-x:scroll; text-align: center;">
+                <div class="container" style="height: 320px; width: 500px; overflow-x:scroll; text-align: center;">
                   <table>
                     {% for song in songs %}
-                    <td style="padding-left:10px; padding-right: 10px;">
+                    <td style="padding: 10px;">
                         <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
                         frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         <input type="checkbox" id="{{song}}" class="box btn-check" />

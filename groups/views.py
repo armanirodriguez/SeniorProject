@@ -37,7 +37,7 @@ def home(request):
 
 def search_songs(query):
     sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='616f55f94a904037a1eb6bdfbfa96d95', client_secret='2e262cfa37904ebeb74d43ff6903c9de'))
-    result = sp.search(q=query, type="track", limit=1)['tracks']['items']
+    result = sp.search(q=query, type="track", limit=10)['tracks']['items']
     tracks = [item['id'] for item in result]
     return tracks
 
