@@ -21,16 +21,21 @@ def home(request):
             if form.is_valid():
                 post = form.save(commit=False)
                 post.poster = request.user
-                #LATER:     add_songs = Song(song_id = request.POST['songs_input'].split(','))
-                # for song in add_songs:
-                #   add_song = Song(song_id = song)
-                #   add_song.save()
-                #   ??? needs to be many to many but currently isn't
-                add_me = request.POST['songs_input'].split(',')[0]
+                add_songs = list(filter(None, request.POST['songs_input'].split(',')))
+                print(add_songs)
+                post.save()
+                if(add_songs):
+                    for song in add_songs:
+                        print(song)
+                        add_songs = Song(song_id = song)
+                        add_songs.save()
+                        post.songs.add(add_songs)
+                        post.save() 
+                """add_me = request.POST['songs_input'].split(',')[0]
                 if(add_me != ""):
                     add_song = Song(song_id = add_me)
                     add_song.save()
-                    post.song = add_song
+                    post.song = add_song"""
                 post.save()
                 return HttpResponseRedirect(request.path_info)
         if 'search_flag' in request.POST:

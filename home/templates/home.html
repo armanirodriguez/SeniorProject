@@ -22,9 +22,11 @@
                             {{post.text}}
                         </p>
                         <center>
-                        {% if post.song %}
-                            <iframe src="https://open.spotify.com/embed/track/{{ post.song.song_id }}" width="200" height="250" 
-                            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        {% if post.songs %}
+                            {% for song in post.songs.all %}
+                                <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="200" height="250" 
+                                frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                            {% endfor %}    
                         {% endif %}
                         </center>
                     </div>
