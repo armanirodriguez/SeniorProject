@@ -31,11 +31,6 @@ def home(request):
                         add_songs.save()
                         post.songs.add(add_songs)
                         post.save() 
-                """add_me = request.POST['songs_input'].split(',')[0]
-                if(add_me != ""):
-                    add_song = Song(song_id = add_me)
-                    add_song.save()
-                    post.song = add_song"""
                 post.save()
                 return HttpResponseRedirect(request.path_info)
         if 'search_flag' in request.POST:
@@ -59,20 +54,40 @@ def search_songs(query):
     return tracks
 
 def community(request, community_name):
+    songs = ""
     try:
         community = Community.objects.get(name=community_name)
     except Community.DoesNotExist:
         raise Http404('Community not found')
     if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.poster = request.user
-            post.save()
+        if 'post_flag' in request.POST:
+                form = PostForm(request.POST)
+                if form.is_valid():
+                    post = form.save(commit=False)
+                    post.poster = request.user
+                    add_songs = list(filter(None, request.POST['songs_input'].split(',')))
+                    print(add_songs)
+                    post.save()
+                    if(add_songs):
+                        for song in add_songs:
+                            print(song)
+                            add_songs = Song(song_id = song)
+                            add_songs.save()
+                            post.songs.add(add_songs)
+                            post.save() 
+                    post.save()
+                    return HttpResponseRedirect(request.path_info)
+        if 'search_flag' in request.POST:
+                searchForm = SearchForm(request.POST)
+                if searchForm.is_valid():
+                    query = searchForm.cleaned_data['query']
+                    songs = search_songs(query)
     posts = Post.objects.all().filter(community=community).order_by('-timestamp')
     return render(request, 'communityhome.html', {
         'community' : community,
         'form' : PostForm(initial={'community' : community}),
         'posts' : posts,
+        'songs' : songs,
+        'searchForm': SearchForm(),
         'communities' : Community.objects.all()
     })

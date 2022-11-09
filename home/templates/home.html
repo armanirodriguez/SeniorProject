@@ -1,7 +1,10 @@
 {% extends "root_navbar.html" %}
+{% load static %}
 {% block title %}Home{% endblock title %}
 {% block mid-content %}
+<div>
     {% for post in posts %}
+    <div style="overflow-x:hidden">
     <li class="nav-item mt-3">
         <div class="post-width">
             <div class="p-3 bg-custom text-white">
@@ -21,14 +24,20 @@
                         <p class="p-2">
                             {{post.text}}
                         </p>
-                        <center>
-                        {% if post.songs %}
-                            {% for song in post.songs.all %}
-                                <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="200" height="250" 
-                                frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                            {% endfor %}    
+                        {% if post.songs.all %}
+                        <div style="margin-bottom:10px" class="table-responsive" id="song_scroll">
+                            <div class="container" style="height: 270px; width: 500px; overflow-x:scroll; text-align: center;">
+                                <table style="margin: 0 auto; width: 10vw;">
+                                    {% for song in post.songs.all %}
+                                        <td style="padding: 10px; padding-bottom: 0px; width: 1vw">
+                                            <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="200" height="250" 
+                                            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                        </td>
+                                    {% endfor %}    
+                                </table>
+                            </div>
+                        </div>
                         {% endif %}
-                        </center>
                     </div>
                 </div>
                 <!--
@@ -43,8 +52,6 @@
         </div>
     </li>
     {% endfor %}
-       
-</ul>
 {% endblock %}
 
 <!-- RIGHT SIDE NAV BAR -->
@@ -57,4 +64,8 @@
             <div class="p-3 mb-2 bg-custom text-white">Placeholder</div>
         </li>
     </ul>
+    </div>
+    
+    <script src="/static/groups/js/scrollbar.js"></script>
+
 {% endblock %}

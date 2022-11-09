@@ -4,7 +4,7 @@
 {% block mid-content %}
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
 <div style="width: 100%; overflow-x:hidden">
-<div class="card text-white bg-secondary m-3" style="min-width: 500px">
+<div class="card text-white bg-secondary m-3" style="min-width: 500px;">
     <div class="card-header">
         <h3>New Post</h3>
     </div>
@@ -16,7 +16,7 @@
                   {{form.as_p }}
                 </div>
                 <input type="text" id="songs_input_id" name="songs_input" value="" style="display: none">
-                <input onclick="clearLocal()" type="submit" class="btn btn-primary" value=Post>
+                <input type="submit" class="btn btn-primary" value=Post>
             </form>
             <form method="post" class="form" action="">
               {% csrf_token %}
@@ -36,7 +36,7 @@
                         <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
                         frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         <input type="checkbox" id="{{song}}" class="box btn-check" />
-                        <label class="btn btn-outline-primary" for="{{song}}">Add</label>
+                        <label class="btn btn-outline-light" for="{{song}}">Add</label>
                     </td>
                     {% endfor %}
                     </table>
@@ -60,10 +60,19 @@
         <blockquote class="blockquote mb-0 text-gray">
           <p> {{ post.text }} </p>
         </blockquote>
-          {% if post.song %}
-            <iframe src="https://open.spotify.com/embed/track/{{ post.song.song_id }}" width="500" height="100" 
-            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-          {% endif %}
+        {% if post.songs.all %}
+        <div class="container" style="height: 270px; width: 500px; overflow-x:scroll; text-align: center;">
+        <table>
+          {% for song in post.songs.all %}
+          <td style="padding: 10px; padding-bottom: 0px;">
+              <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="200" height="250" 
+              frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          </td>
+        {% endfor %}    
+      </table>
+    </div>
+    {% endif %}
+
       </div>
     </div>
   {% endfor %}
