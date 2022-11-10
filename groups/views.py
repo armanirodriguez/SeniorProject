@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -12,7 +12,12 @@ from .models import Community, Post
 
 
 
+
 def home(request):
+    try:
+        user_profile = request.user.profile
+    except Profile.DoesNotExist:
+        user_profile = Profile(user=request.user)
     songs = ""
     if request.method == "POST":
         if 'post_flag' in request.POST:
@@ -42,7 +47,8 @@ def home(request):
         'posts' : posts,
         'communities' : Community.objects.all(),
         'searchForm': SearchForm(),
-        'songs': songs
+        'songs': songs,
+        'user_profile': user_profile
     })
 
 def search_songs(query):
@@ -91,6 +97,12 @@ def community(request, community_name):
     })
 
 
-def join_community(request, user_profile, comm):
+def join_community(request, community_name):
+    try:
+        user_profile = request.user.profile
+    except Profile.DoesNotExist:
+        user_profile = Profile(user=request.user)
+    comm = get_object_or_404(Community, name=community_name)
     user_profile.joined_communities.add(comm)
     user_profile.save()
+    return HttpResponse('<p> joined community </p>')

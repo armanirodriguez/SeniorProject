@@ -98,7 +98,15 @@
           <li id="community-{{community.name}}" class="community-link nav-item p-2 text-white rounded mb-1" style="background-color: #02baff;">
             {{ community.name | title }}
           </li>
-              <button type="button" class="btn btn-primary">Join</button>
+
+              {% if user_profile %}
+                  {% if community in user_profile.joined_communities %}
+                    <button type="button" class="btn btn-primary">Joined</button>
+                  {% else %}
+                    <button href="{% url 'groups:join_community' community.name %}" type="button" class="btn btn-warning">Join</button>
+                  {% endif %}
+              {% endif %}
+
           </a>
           {% endfor %}
         </ul>
