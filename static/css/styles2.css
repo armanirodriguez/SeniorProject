@@ -79,11 +79,14 @@
   @media screen and (min-width: 0px) {
     .right-nav-wrap { display: block; }
   }
+
+  @media screen and (min-width: 0px) {
+    .left-nav-wrap { display: block; }
+  }
   
-  @media screen and (max-width: 800px) {
-    .right-nav-wrap { display: none; }
+  @media screen and (max-width: 700px) {
+    .right-nav-wrap { display: none; }    
     .left-nav-img{
       display: none;
     }
-  
   }

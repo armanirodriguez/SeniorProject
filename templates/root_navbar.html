@@ -1,10 +1,10 @@
 {% extends "root_base.html" %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<div class="row p-0 m-0">
+<link rel="stylesheet" href="{% static 'css/styles2.css' %}">
+<div class="row flex-nowrap p-0 m-0">
     {% block left-bar %}
-    <div class="col p-0 " style="min-width: 200px; max-width: 250px">
+    <div class="col p-0 left-nav-wrap" style="min-width: 200px; max-width: 250px">
         <div class="flex-column p-3 text-white bg-dark left-nav-bar">
             <ul class="nav nav-pills flex-column mb-auto m-1">
                 <li class="nav-item" style="font-weight: bold; font-size: 20px;">
@@ -13,7 +13,7 @@
                 </li>
                 <hr>
                 <li class="nav-item">
-                    <a onclick="clearLocal();" id="home-btn" href="{% url 'home' %}" class="nav-link text-white" aria-current="page">
+                    <a id="home-btn" href="{% url 'home' %}" class="nav-link text-white" aria-current="page">
                         <img src="{% static 'images/house-fill.svg' %}" alt="" class="left-nav-img">
                         Home
                     </a>
@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li>
-                    <a onclick="clearLocal();" id ="search-btn" href="{% url 'search:search' %}" class="nav-link text-white">
+                    <a id ="search-btn" href="{% url 'search:search' %}" class="nav-link text-white">
                     <img src="{% static 'images/search.svg' %}" alt="" class="left-nav-img">
                     Song Search
                     </a>
@@ -37,10 +37,10 @@
                     <a href="{% url 'groups:home' %}" class="nav-link d-flex align-items-center text-white text-decoration-none m-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false"></a>
                         <!-- TODO: Fix this hacky solution -->
                         <span id="profile-links">
-                            <a onclick="clearLocal();" href="{% url 'users:profile' %}"><img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2"></a>
-                            <a onclick="clearLocal();" href="{% url 'users:profile' %}" class="text-white text-decoration-none" id="username-link">{{user.username}}</a>
+                            <a href="{% url 'users:profile' %}"><img src="/users{{ user.profile.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2"></a>
+                            <a href="{% url 'users:profile' %}" class="text-white text-decoration-none" id="username-link">{{user.username}}</a>
                         </span>
-                            <a onclick="clearLocal();" href="{% url 'users:logout' %}"><span class="p-2"><img src="{% static 'images/logout.svg' %}"/></span></a>
+                            <a href="{% url 'users:logout' %}"><span class="p-2"><img src="{% static 'images/logout.svg' %}"/></span></a>
                 </div>
             {% else %}
                 <a onclick="removeActiveLink()" class="btn btn-warning" href="{% url 'users:login' %}">Log-In</a>
@@ -48,15 +48,16 @@
         </div>
     </div>
     {% endblock %}
-
+    
     {% block mid-bar %}
-    <div class="col p-0">
-        <div id="overflow-wrap" style="height:100vh; width:100%; overflow-y: scroll;">
+    <div class="col-8 p-0">
+        <div id="overflow-wrap" style="height:100vh; width: 100%; overflow-y: scroll;">
             <ul class="nav nav-pills flex-column mb-auto">
-
-                <div id="top-btn-wrap" style="width: 100%; text-align: center;">
-                    <input id="top-btn" onclick="topFunction()" type="image" src="/static/images/5399087-5.png" class="mb-3 top-button position-fixed" style="bottom:0;" />
-                </div>
+                <center>
+                    <div id="top-btn-wrap">
+                        <input id="top-btn" onclick="topFunction()" type="image" src="/static/images/5399087-5.png" class="mb-3 top-button position-fixed" style="bottom:0;" />
+                    </div>
+                </center>
                 {% block mid-content %}
                 {% endblock %}
             </ul>
@@ -64,11 +65,11 @@
         </div>
     </div>
     {% endblock %}
-
+    
     {% block right-bar %}
     <!-- RIGHT SIDE NAV BAR -->
-    <div class="col p-0 right-nav-wrap bg-dark">
-        <div class="flex-column p-3 text-white bg-dark right-nav-bar" style="max-width: 250px; float:left; overflow-y: scroll;">
+    <div class="col p-0 right-nav-wrap bg-dark" style="min-width: 200px; max-width: 250px">
+        <div class="flex-column p-3 text-white bg-dark right-nav-bar" style="float:left; overflow-y: scroll;">
             <div class="input-group col-md-4">
                 <input class="form-control py-2" placeholder="Search" type="search">
           </div>

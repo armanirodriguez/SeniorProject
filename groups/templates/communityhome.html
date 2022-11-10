@@ -4,7 +4,7 @@
 {% block mid-content %}
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
 <div style="width: 100%; overflow-x:hidden">
-<div class="card text-white bg-secondary m-3" style="min-width: 500px">
+<div class="card text-white bg-secondary m-3" style="overflow-x:hidden">
     <div class="card-header">
         <h3>New Post</h3>
     </div>
@@ -16,7 +16,7 @@
                   {{form.as_p }}
                 </div>
                 <input type="text" id="songs_input_id" name="songs_input" value="" style="display: none">
-                <input onclick="clearLocal()" type="submit" class="btn btn-primary" value=Post>
+                <input type="submit" class="btn btn-primary" value=Post>
             </form>
             <form method="post" class="form" action="">
               {% csrf_token %}
@@ -27,23 +27,29 @@
                   <input type="submit" class="btn btn-primary" value=GO>
                 </div>
             </form>
+            
             {% if songs %}
               <center>
-                <div class="container" style="height: 320px; width: 500px; overflow-x:scroll; text-align: center;">
+                <div class="container" style="height: 320px; width: 90%; overflow-x:scroll; text-align: center;">
                   <table>
                     {% for song in songs %}
                     <td style="padding: 10px;">
                         <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
                         frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         <input type="checkbox" id="{{song}}" class="box btn-check" />
-                        <label class="btn btn-outline-primary" for="{{song}}">Add</label>
+                        <label class="btn btn-outline-light" for="{{song}}">Add</label>
                     </td>
                     {% endfor %}
                     </table>
                   </div>
-                </div>  
               </center>
             {% endif %}
+            <div id="clear_wrap_id">
+              <p id="selected_songs_p"></p>
+              <form>
+                <input type="submit" onclick="clearLocal()" id="clear" class="btn btn-danger" value="Clear All">
+              </form>
+            </div>
         {% else %}
             <h5> You must login to post </h5>
         {% endif %}
@@ -51,6 +57,8 @@
 </div>
 
 {% if community.name %}
+  <div style="width: 100%; overflow-x:hidden">
+
   {% for post in posts %}
   <div class="card text-black m-3" style="background-color: #e3e3e3; border-radius: 9px; border-color: #e3e3e3">
       <div class="card-header">
@@ -60,10 +68,19 @@
         <blockquote class="blockquote mb-0 text-gray">
           <p> {{ post.text }} </p>
         </blockquote>
-          {% if post.song %}
-            <iframe src="https://open.spotify.com/embed/track/{{ post.song.song_id }}" width="500" height="100" 
-            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-          {% endif %}
+        {% if post.songs.all %}
+        <div class="container" style="height: 270px; width: 90%; overflow-x:scroll; text-align: center;">
+        <table>
+          {% for song in post.songs.all %}
+          <td style="padding: 10px; padding-bottom: 0px;">
+              <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="200" height="250" 
+              frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          </td>
+        {% endfor %}    
+      </table>
+    </div>
+    {% endif %}
+
       </div>
     </div>
   {% endfor %}
@@ -72,6 +89,7 @@
     <div class="card-body" style="text-align:center; font-weight: bold; color: #636261">
       Welcome to the communities page. Select a community from the right navigation bar to get started.
     </div>
+  </div>
   </div>
 {% endif %}
 {% endblock mid-content %}
@@ -87,6 +105,15 @@
           <li id="community-{{community.name}}" class="community-link nav-item p-2 text-white rounded mb-1" style="background-color: #02baff;">
             {{ community.name | title }}
           </li>
+
+              {% if user_profile %}
+                  {% if community in user_profile.joined_communities %}
+                    <button type="button" class="btn btn-primary">Joined</button>
+                  {% else %}
+                    <button href="{% url 'groups:join_community' community.name %}" type="button" class="btn btn-warning">Join</button>
+                  {% endif %}
+              {% endif %}
+
           </a>
           {% endfor %}
         </ul>
@@ -97,6 +124,6 @@
     </div>
 </div>
 <script src="{% static 'groups/js/right-buttons.js' %}"></script>
-<script src="{% static 'groups/js/checkbox.js' %}"></script>
+<script src="/static/groups/js/checkbox.js?v23"></script>
 
 {% endblock %}

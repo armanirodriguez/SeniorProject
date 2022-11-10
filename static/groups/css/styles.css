@@ -1,3 +1,7 @@
 .community-active{
     background-color: #02baff;
 }
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #02baff !important;
+}

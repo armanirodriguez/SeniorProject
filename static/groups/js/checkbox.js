@@ -1,21 +1,32 @@
-let count = 0;
+let song_count = 0;
 $(document).ready(function () {
     cleanSongs();
 });
-
+console.log("test");
 jQuery($ => {
     $(".box").on('click', function () {
         let clicked = localStorage.getItem("song_checks");  
         if(clicked !== null){
-            if(!(clicked.includes($(this).attr('id').toString())) && count <= 3)
+            if(!(clicked.includes($(this).attr('id').toString())))
             {
                 localStorage.setItem("song_checks", $(this).attr('id').toString() + "," + clicked);
+                song_count+=1;
                 updateInput();
             }
             else{
                 localStorage.setItem("song_checks", clicked.replace($(this).attr('id').toString()+",",''));
+                song_count-=1;
                 updateInput();
             }
+        }
+        clicked = localStorage.getItem("song_checks");  
+        if (clicked === ""){
+            clear_wrap = document.getElementById("clear_wrap_id");
+            clear_wrap.style.display = 'none';
+        }
+        else{
+            clear_wrap = document.getElementById("clear_wrap_id");
+            clear_wrap.style.display = 'inline-block';
         }
     });
   });
@@ -28,10 +39,15 @@ function updateInput(){
 
 function clearLocal() {
     localStorage.removeItem("song_checks");
+    cleanSongs();
 }
 
 function cleanSongs() {
     let curr = localStorage.getItem("song_checks");
+    if (curr === ""){
+        clear_wrap = document.getElementById("clear_wrap_id");
+        clear_wrap.style.display = 'none';
+    }
     if (curr === null){
         localStorage.setItem("song_checks", "");
     }

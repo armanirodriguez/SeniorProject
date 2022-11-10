@@ -23,10 +23,9 @@
 
 <!-- CSRF token added to htmx headers for htmx requests -->
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-<div class="">
     {% block content %}
     {% endblock %}
-</div>
+
     {% if messages %}
             <div class="alert alert-dismissible" role="alert">
                 {% for message in messages %}

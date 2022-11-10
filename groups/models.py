@@ -13,4 +13,4 @@ class Post(models.Model):
     poster = models.ForeignKey(User, on_delete=models.CASCADE)
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
-    songs = models.ManyToManyField(Song, blank=True, null=True)
+    songs = models.ManyToManyField(Song, blank=True)
