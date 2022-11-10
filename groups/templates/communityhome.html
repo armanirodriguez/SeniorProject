@@ -27,6 +27,7 @@
                   <input type="submit" class="btn btn-primary" value=GO>
                 </div>
             </form>
+            
             {% if songs %}
               <center>
                 <div class="container" style="height: 320px; width: 90%; overflow-x:scroll; text-align: center;">
@@ -43,6 +44,12 @@
                   </div>
               </center>
             {% endif %}
+            <div id="clear_wrap_id">
+              <p id="selected_songs_p"></p>
+              <form>
+                <input type="submit" onclick="clearLocal()" id="clear" class="btn btn-danger" value="Clear All">
+              </form>
+            </div>
         {% else %}
             <h5> You must login to post </h5>
         {% endif %}
@@ -117,6 +124,6 @@
     </div>
 </div>
 <script src="{% static 'groups/js/right-buttons.js' %}"></script>
-<script src="{% static 'groups/js/checkbox.js' %}"></script>
+<script src="/static/groups/js/checkbox.js?v23"></script>
 
 {% endblock %}
