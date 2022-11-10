@@ -1,17 +1,16 @@
 from django.shortcuts import render
-from django.shortcuts import redirect
-from django.http import HttpResponseRedirect
-from django.http import Http404
-
+from django.http import HttpResponseRedirect, Http404
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
+from search.forms import SearchForm
+from music.models import Song
+from users.models import Profile
+
+from .forms import PostForm
 from .models import Community, Post
 
-from music.models import Song
-from .forms import PostForm
 
-from search.forms import SearchForm
 
 def home(request):
     songs = ""
@@ -22,7 +21,6 @@ def home(request):
                 post = form.save(commit=False)
                 post.poster = request.user
                 add_songs = list(filter(None, request.POST['songs_input'].split(',')))
-                print(add_songs)
                 post.save()
                 if(add_songs):
                     for song in add_songs:
@@ -91,3 +89,8 @@ def community(request, community_name):
         'searchForm': SearchForm(),
         'communities' : Community.objects.all()
     })
+
+
+def join_community(request, user_profile, comm):
+    user_profile.joined_communities.add(comm)
+    user_profile.save()
