@@ -48,7 +48,7 @@
         </div>
     </div>
     {% endblock %}
-
+    
     {% block mid-bar %}
     <div class="col-8 p-0">
         <div id="overflow-wrap" style="height:100vh; width: 100%; overflow-y: scroll;">
@@ -65,11 +65,11 @@
         </div>
     </div>
     {% endblock %}
-
+    
     {% block right-bar %}
     <!-- RIGHT SIDE NAV BAR -->
-    <div class="col p-0 right-nav-wrap bg-dark">
-        <div class="flex-column p-3 text-white bg-dark right-nav-bar" style="max-width: 250px; float:left; overflow-y: scroll;">
+    <div class="col p-0 right-nav-wrap bg-dark" style="min-width: 200px; max-width: 250px">
+        <div class="flex-column p-3 text-white bg-dark right-nav-bar" style="float:left; overflow-y: scroll;">
             <div class="input-group col-md-4">
                 <input class="form-control py-2" placeholder="Search" type="search">
           </div>

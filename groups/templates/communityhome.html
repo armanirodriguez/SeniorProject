@@ -4,7 +4,7 @@
 {% block mid-content %}
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
 <div style="width: 100%; overflow-x:hidden">
-<div class="card text-white bg-secondary m-3">
+<div class="card text-white bg-secondary m-3" style="overflow-x:hidden">
     <div class="card-header">
         <h3>New Post</h3>
     </div>
@@ -29,7 +29,7 @@
             </form>
             {% if songs %}
               <center>
-                <div class="container" style="height: 320px; width: 500px; overflow-x:scroll; text-align: center;">
+                <div class="container" style="height: 320px; width: 90%; overflow-x:scroll; text-align: center;">
                   <table>
                     {% for song in songs %}
                     <td style="padding: 10px;">
@@ -41,7 +41,6 @@
                     {% endfor %}
                     </table>
                   </div>
-                </div>  
               </center>
             {% endif %}
         {% else %}
@@ -51,8 +50,10 @@
 </div>
 
 {% if community.name %}
+  <div style="width: 100%; overflow-x:hidden">
+
   {% for post in posts %}
-  <div class="card text-black m-3" style="overflow-x: hidden;background-color: #e3e3e3; border-radius: 9px; border-color: #e3e3e3">
+  <div class="card text-black m-3" style="background-color: #e3e3e3; border-radius: 9px; border-color: #e3e3e3">
       <div class="card-header">
         Posted: {{ post.timestamp }} by {{post.poster.username}}
       </div>
@@ -61,7 +62,7 @@
           <p> {{ post.text }} </p>
         </blockquote>
         {% if post.songs.all %}
-        <div class="container" style="height: 270px; width: 85%; overflow-x:scroll; text-align: center;">
+        <div class="container" style="height: 270px; width: 90%; overflow-x:scroll; text-align: center;">
         <table>
           {% for song in post.songs.all %}
           <td style="padding: 10px; padding-bottom: 0px;">
@@ -81,6 +82,7 @@
     <div class="card-body" style="text-align:center; font-weight: bold; color: #636261">
       Welcome to the communities page. Select a community from the right navigation bar to get started.
     </div>
+  </div>
   </div>
 {% endif %}
 {% endblock mid-content %}

@@ -25,10 +25,10 @@
                     </p>
                     {% if post.songs.all %}
                     <div style="margin-bottom:10px" class="table-responsive" id="song_scroll">
-                        <div class="container" style="height: 270px; width: 500px; overflow-x:scroll; text-align: center;">
-                            <table style="margin: 0 auto; width: 10vw;">
+                        <div class="container" style="height: 270px; width: 90%; overflow-x:scroll; text-align: center;">
+                            <table style="margin: 0 auto; width: 100%;">
                                 {% for song in post.songs.all %}
-                                    <td style="padding: 10px; padding-bottom: 0px; width: 1vw">
+                                    <td style="padding: 10px; padding-bottom: 0px;">
                                         <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="200" height="250" 
                                         frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                                     </td>
@@ -54,6 +54,7 @@
 {% endfor %}
 {% endblock %}
 
+
 <!-- RIGHT SIDE NAV BAR -->
 {% block right-content %}
     <hr>
@@ -66,6 +67,6 @@
     </ul>
     </div>
     
-    <script src="/static/groups/js/scrollbar.js"></script>
+    <script src="/static/groups/js/scrollbar.js?v23"></script>
 
 {% endblock %}
