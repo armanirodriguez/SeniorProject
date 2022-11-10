@@ -49,6 +49,26 @@
     </div>
 </div>
 
+<div class="card text-white bg-secondary m-3" style="overflow-x:hidden">
+  <div class="card-header">
+      <h3>New Community</h3>
+  </div>
+  <div class="card-body" style="color: #636261">
+      {% if user.is_authenticated %}
+          <form action = "" method = "post">
+              {% csrf_token %}
+              <div style="color: white">
+                {{form.as_p }}
+              </div>
+              <input type="text" id="community_input_id" name="community_input" value="" style="display: none">
+              <input type="submit" class="btn btn-primary" value="Create Community">
+          </form>
+      {% else %}
+          <h5> You must login to post </h5>
+      {% endif %}
+  </div>
+</div>
+
 {% if community.name %}
   <div style="width: 100%; overflow-x:hidden">
 
