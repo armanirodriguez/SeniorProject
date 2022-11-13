@@ -17,24 +17,48 @@
 
 {% if songs %}
 <center>
+
     <table>
-    <td>
-    {% for song in songs %}
+        <thead>
+          <tr>
+            {% for song in songs %}
+            <th>
+                <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="200" 
+                frameborder="1" allowtransparency="true" allow="encrypted-media"></iframe>
+            </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% if user.is_authenticated %}
+            {% for song in songs %}
+            <td>
+                {% csrf_token %}
+                <center>
+                <a href="{% url 'search:fave_song' song %}">Add To Favorites</a>
+                </center>
+            </td>
+            {% endfor %}
+            {% endif %}
+          </tr>
+        </tbody>
+      </table>
 
-    <tr>
-    <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
-    frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-    </tr>
 
-    <tr>
-    </tr>
 
-    {% endfor %}
-    
-    </td>
-    </table>
+
+
+
+
+
+
+
+
+
 </center>
 {% endif %}
+
 
 
 
