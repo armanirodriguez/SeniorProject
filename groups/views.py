@@ -105,4 +105,5 @@ def join_community(request, community_name):
     comm = get_object_or_404(Community, name=community_name)
     user_profile.joined_communities.add(comm)
     user_profile.save()
+    print(user_profile)
     return HttpResponse('<p> joined community </p>')
