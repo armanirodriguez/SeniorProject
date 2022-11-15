@@ -12,6 +12,7 @@ from .models import Profile
 def profile(request):
     try:
         profile = request.user.profile
+        faveSongs = profile.fave_songs.all()
     except Profile.DoesNotExist:
         profile = Profile(user=request.user)
     if request.method == 'POST':
@@ -27,7 +28,7 @@ def profile(request):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'faveSongs':faveSongs})
 
 
 def dispatch(self, request, *args, **kwargs):

@@ -48,8 +48,20 @@
                     <div class="col-sm-12 mb-3">
                         <div class="card h-100 shadow" style="background-color: white; border-radius: 9px; border-color: #e3e3e3">
                             <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3" style="font-weight: bold">Placeholder</h6>
-                                <div class="text" style="color: #696766">Stats or other profile elements can go here</div>
+                                <h6 class="d-flex align-items-center mb-3" style="font-weight: bold">Favorite Songs</h6>
+                                <!-- <div class="text" style="color: #696766">Stats or other profile elements can go here</div> -->
+                                {% if user.profile.fave_songs %}
+                                
+                                    <table>
+                                        {% for song in faveSongs %}
+                                        <tr style="padding: 10px; padding-bottom: 0px;">
+                                            <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="500" height="100" 
+                                            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                        </tr>
+                                    {% endfor %}    
+                                    </table>
+
+                                {% endif %}
                             </div>
                         </div>
                     </div>
