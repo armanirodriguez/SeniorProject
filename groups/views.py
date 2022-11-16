@@ -98,12 +98,21 @@ def community(request, community_name):
 
 
 def join_community(request, community_name):
-    if(request.user.profile):
-        try:
-            user_profile = request.user.profile
-        except Profile.DoesNotExist:
-            user_profile = Profile(user=request.user)
+    try:
+        user_profile = request.user.profile
+    except Profile.DoesNotExist:
+        user_profile = Profile(user=request.user)
     comm = get_object_or_404(Community, name=community_name)
     user_profile.joined_communities.add(comm)
     user_profile.save()
-    return HttpResponse('<p> joined community </p>')
+    return redirect('groups:community', community_name=community_name)
+
+def leave_community(request, community_name):
+    try:
+        user_profile = request.user.profile
+    except Profile.DoesNotExist:
+        user_profile = Profile(user=request.user)
+    comm = get_object_or_404(Community, name=community_name)
+    user_profile.joined_communities.remove(comm)
+    user_profile.save()
+    return redirect('groups:community', community_name=community_name)
