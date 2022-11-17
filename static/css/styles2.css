@@ -16,7 +16,7 @@
     max-width: 250px;
     height: 100vh;
   }
-  
+
   .right-nav-bar{
     min-width: 170px;
     height: 100vh;
@@ -74,6 +74,13 @@
   
   .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
     background-color: #02baff;
+  }
+
+  .home-stats{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
   }
   
   @media screen and (min-width: 0px) {
