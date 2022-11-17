@@ -2,6 +2,12 @@
 {% block title %}Communities{% endblock title %}
 {% load static %}
 {% block mid-content %}
+{% if community.name %}
+<div class="m-3">
+  <h1 class="display-4">{{community.name}}</h1>
+  <hr>
+</div>
+{% endif %}
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
 <div style="width: 100%; overflow-x:hidden">
 <div class="card text-white bg-secondary m-3" style="overflow-x:hidden">
@@ -58,7 +64,6 @@
 
 {% if community.name %}
   <div style="width: 100%; overflow-x:hidden">
-
   {% for post in posts %}
   <div class="card text-black m-3" style="background-color: #e3e3e3; border-radius: 9px; border-color: #e3e3e3">
       <div class="card-header">
@@ -95,32 +100,37 @@
 {% endblock mid-content %}
 
 {% block right-content %}
-      <hr>
+    <hr>
     <a href="{% url 'groups:home' %}" class="text-decoration-none text-white">Communities</a>
     <hr>
-      <div id="community-list-wrap">
-        <ul class="nav nav-pills flex-column mb-auto m-1">
-          {% for community in communities %}
-          <a class="text-decoration-none text-white" href="{% url 'groups:community' community.name %}">
-          <li id="community-{{community.name}}" class="community-link nav-item p-2 text-white rounded mb-1" style="background-color: #02baff;">
-            {{ community.name | title }}
-          </li>
-
-              {% if user_profile %}
-                  {% if community in user_profile.joined_communities %}
-                    <button type="button" class="btn btn-primary">Joined</button>
+    <div id="community-list-wrap">
+      <ul class="nav nav-pills flex-column mb-auto m-1">
+        {% for community in communities %}
+        <a class="text-decoration-none text-white" href="{% url 'groups:community' community.name %}">
+        <li id="community-{{community.name}}" class="community-link nav-item p-2 text-white rounded mb-1" style="background-color: #02baff;">
+          <div class="row flex-nowrap p-0 m-0" style="width:68%">
+              <div class="col">
+                {{community.name}}
+              </div>
+              <div class="col my-auto">
+                {% if user_profile %}
+                  {% if community in user_profile.joined_communities.all %}
+                    <a href="{% url 'groups:leave_community' community.name %}" class="btn btn-light" style="height:40px; width:40px">-</a>
                   {% else %}
-                    <button href="{% url 'groups:join_community' community.name %}" type="button" class="btn btn-warning">Join</button>
+                    <a href="{% url 'groups:join_community' community.name %}" class="btn btn-light" style="height: 40px; width:40px">+</a>
                   {% endif %}
-              {% endif %}
-
-          </a>
-          {% endfor %}
-        </ul>
-        <ul class="nav nav-pills flex-column mb-auto m-1">
-            <li class="nav-item">
-            </li>
-        </ul>
+                {% endif %}
+              </div>
+          </div>
+          
+        </li>
+        </a>
+        {% endfor %}
+      </ul>
+      <ul class="nav nav-pills flex-column mb-auto m-1">
+          <li class="nav-item">
+          </li>
+      </ul>
     </div>
 </div>
 <script src="{% static 'groups/js/right-buttons.js' %}"></script>

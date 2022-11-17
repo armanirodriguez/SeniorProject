@@ -25,17 +25,15 @@ def home(request):
             if form.is_valid():
                 post = form.save(commit=False)
                 post.poster = request.user
-                post.save()
                 add_songs = list(filter(None, request.POST['songs_input'].split(',')))
+                post.save()
                 if(add_songs):
                     for song in add_songs:
-                        try:
-                            newsong = Song(song_id = song)
-                            newsong.save()
-                        except:
-                            print("song already in library")
-                        tempsong = get_object_or_404(Song, song_id = song)
-                        post.songs.add(tempsong)
+                        print(song)
+                        add_songs = Song(song_id = song)
+                        add_songs.save()
+                        post.songs.add(add_songs)
+                        post.save() 
                 post.save()
                 return HttpResponseRedirect(request.path_info)
         if 'search_flag' in request.POST:
@@ -72,17 +70,15 @@ def community(request, community_name):
                     post = form.save(commit=False)
                     post.poster = request.user
                     add_songs = list(filter(None, request.POST['songs_input'].split(',')))
-                    post.save()
                     print(add_songs)
+                    post.save()
                     if(add_songs):
                         for song in add_songs:
-                            try:
-                                newsong = Song(song_id = song)
-                                newsong.save()
-                            except:
-                                print("song already in library")
-                            tempsong = get_object_or_404(Song, song_id = song)
-                            post.songs.add(tempsong)
+                            print(song)
+                            add_songs = Song(song_id = song)
+                            add_songs.save()
+                            post.songs.add(add_songs)
+                            post.save() 
                     post.save()
                     return HttpResponseRedirect(request.path_info)
         if 'search_flag' in request.POST:
@@ -109,4 +105,14 @@ def join_community(request, community_name):
     comm = get_object_or_404(Community, name=community_name)
     user_profile.joined_communities.add(comm)
     user_profile.save()
-    return HttpResponse('<p> joined community </p>')
+    return redirect('groups:community', community_name=community_name)
+
+def leave_community(request, community_name):
+    try:
+        user_profile = request.user.profile
+    except Profile.DoesNotExist:
+        user_profile = Profile(user=request.user)
+    comm = get_object_or_404(Community, name=community_name)
+    user_profile.joined_communities.remove(comm)
+    user_profile.save()
+    return redirect('groups:community', community_name=community_name)
