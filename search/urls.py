@@ -5,5 +5,6 @@ app_name = "search"
 
 urlpatterns = [
     path('', views.search, name='search'),
-    path("faveSong/<str:song_id>", views.fave_song, name='fave_song')
+    path("faveSong/<str:song_id>", views.fave_song, name='fave_song'),
+    path("addtolist/<str:song_id>", views.addtolist, name='addtolist')
 ]

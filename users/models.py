@@ -1,13 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from groups.models import Community
-from music.models import Song
+from music.models import Song, Playlist
+
 from PIL import Image
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     joined_communities = models.ManyToManyField(Community)
     fave_songs = models.ManyToManyField(Song)
+    playlists = models.ManyToManyField(Playlist)
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField()
 

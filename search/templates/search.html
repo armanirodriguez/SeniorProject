@@ -1,12 +1,12 @@
 {% extends "root_navbar.html" %}
 {% block title %}Song Search{% endblock title %}
 {% block mid-content %}
-<form method='post' class="form" action="{% url 'search:search' %}">
+<form method='post' class="searchform" action="{% url 'search:search' %}">
     {% csrf_token %}
     <br>
     <center>
         <h2 style="font-weight: bold; margin-right: 1rem">Song Search</h2>
-        <p>{{ form.query }} 
+        <p>{{ searchform.query }} 
         <button type="submit" class="btn btn-secondary">
             GO
         </button>
@@ -38,29 +38,46 @@
                 <center>
                 <a href="{% url 'search:fave_song' song %}">Add To Favorites</a>
                 </center>
+
+                {% if playlists%}
+                <form method='post' class="listform" action="{% url 'search:addtolist' song %}">
+                  {% csrf_token %}
+                  <br>
+                  <center>
+                      <p>{{ listform.Playlist }} 
+                      <button type="submit" class="btn btn-secondary">
+                          Add To Playlist
+                      </button>
+                  </p>
+                  </center>
+                </form>
+                {% endif %}
+
             </td>
+
+
             {% endfor %}
             {% endif %}
           </tr>
         </tbody>
       </table>
-
-
-
-
-
-
-
-
-
-
-
-
-</center>
+    </center>
 {% endif %}
-
-
-
+<center>
+      {% if playlists %}
+      <h1>User Playlists</h1>
+      <table>
+        {% for p in playlists %}
+        <tc>
+          <p style="text-decoration: underline;">{{ p.playlist_name }}</p>
+            {% for song in p.songs.all %}
+              <p>{{ song.song_name }}</p>
+            {% endfor %}
+        </tc>
+        {% endfor %}
+      </table>
+      {% endif %}
+</center>
 
 {% endblock mid-content %}
 

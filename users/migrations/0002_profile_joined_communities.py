@@ -11,9 +11,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='profile',
-            name='joined_communities',
-            field=models.ManyToManyField(to='groups.Community'),
-        ),
+
     ]
