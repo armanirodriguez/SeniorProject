@@ -15,7 +15,7 @@
                     <a href="{% url 'groups:community' post.community.name %}" onclick="document.getElementById('comm-btn').click()" class="white-link" style="font-size: 10px;">h/{{post.community.name}}</a>
                 </div>
                 <div class="col-4 link-col">
-                    <a href="#" class="white-link" style="font-size: 10px;">u/{{post.poster.username}}</a>
+                    <a href="{% url 'users:publicProfile' post.poster.username%}" class="white-link" style="font-size: 10px;">u/{{post.poster.username}}</a>
                 </div>
                 <div class="col-4 link-col">
                     <a href="#" class="white-link" style="font-size: 10px;">{{post.timestamp}}</a>

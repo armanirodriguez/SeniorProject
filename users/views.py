@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib import messages
 from .forms import RegisterForm, LoginForm, UpdateProfileForm, UpdateUserForm
@@ -28,7 +29,19 @@ def profile(request):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form, 'faveSongs':faveSongs})
+    return render(request, 'profile.html',
+                  {'user_form': user_form, 'profile_form': profile_form, 'faveSongs': faveSongs})
+
+
+def publicProfile(request, username):
+    try:
+        user = get_object_or_404(User, username=username)
+        profile = get_object_or_404(Profile, user=user.id)
+        faveSongs = profile.fave_songs.all()
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
+
+    return render(request, 'public_profile.html', {'faveSongs': faveSongs, 'user':user})
 
 
 def dispatch(self, request, *args, **kwargs):

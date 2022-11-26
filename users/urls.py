@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from . import views
 from .forms import LoginForm
 from .views import RegisterView, CustomLoginView, profile
 from django.contrib.auth import views as auth_views
@@ -29,4 +31,5 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(redirect_authenticated_user=True, template_name='login.html', authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('profile/', profile, name='profile'),
+    path('publicProfile/<str:username>', views.publicProfile, name='publicProfile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

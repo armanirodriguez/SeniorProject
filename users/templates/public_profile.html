@@ -13,9 +13,6 @@
                                 <h4 style="color: black; font-weight: bold">{{ user.first_name }} {{user.last_name}}</h4>
                                 <div class="text-secondary" style="color: black;">{{ user.profile.bio }}</div>
                                 <div class="mt-md-4"></div>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#profileModal" style="font-weight: bold; font-size: 13px; ">
-                                    Edit Profile
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -67,70 +64,12 @@
                     </div>
                 </div>
 
-                <div>
-                    {% if user.is_authenticated %}
-                      <a href="{% url 'users:logout' %}"> <button class="btn btn-secondary" style="font-weight: bold; border-raidus: 13px; font-size: 11px;
-                        "> Logout </button></a>
-                    {% else %}
-                    {% endif %}
-
-                </div>
-
             </div>
         </div>
 
     </div>
 </div>
 
-
-<div id="profileModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog" role="form">
-        <div class="modal-content" style="font-size: 12px; font-weight: bold">
-            <h3 class="modal-title" style="color: black; margin-left: 15px; margin-top: 15px; margin-bottom: -10px; font-weight: bold;">Edit Profile</h3>
-            {% if user_form.errors %}
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                <div id="form_errors">
-                    {% for key, value in user_form.errors.items %}
-                    <strong>{{ value }}</strong>
-                    {% endfor %}
-                </div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {% endif %}
-
-            <div class="modal-body">
-                <div class="form-content">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label class="small mb-1">Username</label>
-                            {{ user_form.username }}
-                            <label class="small mb-1">Email</label>
-                            {{ user_form.email }}
-                        </div>
-                        <div class="form-group">
-                            <hr>
-                            <label class="small mb-1">Change Avatar </label>
-                            <br>
-                            {{ profile_form.avatar }}
-                        </div>
-                        <div class="form-group">
-                            <label class="small mb-1">Bio</label>
-                            {{ profile_form.bio }}
-                        </div>
-                        <br><br>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-lg" style="font-size: 10px">Save Changes</button>
-                            <button type="reset" class="btn btn-secondary btn-lg" style="font-size: 10px">Reset</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock mid-content %}
 
 {% block topbutton %}
