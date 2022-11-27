@@ -5,8 +5,14 @@
 {% if community.name %}
 <div class="m-3">
   <h1 class="display-4">{{community.name}}</h1>
+    {{comm_users|length}} user(s) in this community
   <hr>
 </div>
+{% else %}
+  <div class="m-3">
+    <h4 class="display-7" style="text-align:center">{{users|length}} user(s) and {{posts|length}} post(s) across all communities</h4>
+    <hr>
+  </div>
 {% endif %}
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
 <div style="width: 100%; overflow-x:hidden">
@@ -133,7 +139,7 @@
       </ul>
     </div>
 </div>
+{% endblock %}
+
 <script src="{% static 'groups/js/right-buttons.js' %}"></script>
 <script src="/static/groups/js/checkbox.js?v23"></script>
-
-{% endblock %}

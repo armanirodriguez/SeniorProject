@@ -2,9 +2,6 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 {% block mid-content %}
-<div class="home-stats">
-    <h2> There are currently {{ posts|length }} posts being shared across {{ communities|length }} communities on herddit </h2>
-</div>
 {% for post in posts %}
 <div style="overflow-x:hidden; width:100%;">
 <li class="nav-item mt-3">

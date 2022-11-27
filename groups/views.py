@@ -7,6 +7,8 @@ from search.forms import SearchForm
 from music.models import Song
 from users.models import Profile
 
+import users
+
 from .forms import PostForm
 from .models import Community, Post
 
@@ -18,6 +20,7 @@ def home(request):
         user_profile = request.user.profile
     except Profile.DoesNotExist:
         user_profile = Profile(user=request.user)
+    users = Profile.objects.all()
     songs = ""
     if request.method == "POST":
         if 'post_flag' in request.POST:
@@ -48,7 +51,8 @@ def home(request):
         'communities' : Community.objects.all(),
         'searchForm': SearchForm(),
         'songs': songs,
-        'user_profile': user_profile
+        'user_profile': user_profile,
+        'users': users
     })
 
 def search_songs(query):
@@ -60,7 +64,9 @@ def search_songs(query):
 def community(request, community_name):
     songs = ""
     try:
+        user_profile = request.user.profile
         community = Community.objects.get(name=community_name)
+        comm_users = Profile.objects.filter(joined_communities__in=[community.id]).values()
     except Community.DoesNotExist:
         raise Http404('Community not found')
     if request.method == "POST":
@@ -93,7 +99,9 @@ def community(request, community_name):
         'posts' : posts,
         'songs' : songs,
         'searchForm': SearchForm(),
-        'communities' : Community.objects.all()
+        'communities' : Community.objects.all(),
+        'comm_users': comm_users,
+        'user_profile': user_profile,
     })
 
 
