@@ -17,7 +17,10 @@ from .models import Community, Post
 
 def home(request):
     try:
-        user_profile = request.user.profile
+        if(request.user.is_authenticated):
+            user_profile = request.user.profile
+        else:
+            user_profile = ""
     except Profile.DoesNotExist:
         user_profile = Profile(user=request.user)
     users = Profile.objects.all()
@@ -64,7 +67,10 @@ def search_songs(query):
 def community(request, community_name):
     songs = ""
     try:
-        user_profile = request.user.profile
+        if(request.user.is_authenticated):
+            user_profile = request.user.profile
+        else:
+            user_profile = ""
         community = Community.objects.get(name=community_name)
         comm_users = Profile.objects.filter(joined_communities__in=[community.id]).values()
     except Community.DoesNotExist:
