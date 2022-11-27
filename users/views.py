@@ -53,6 +53,11 @@ def dispatch(self, request, *args, **kwargs):
 class CustomLoginView(LoginView):
     form_class = LoginForm
 
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('/')
+        return super(CustomLoginView, self).get(request, *args, **kwargs)
+
     def form_valid(self, form):
         remember_me = form.cleaned_data.get('remember_me')
         if not remember_me:

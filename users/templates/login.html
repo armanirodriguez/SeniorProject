@@ -22,7 +22,7 @@
                             </div>
                         {% endif %}
                         <div class="card-body text-black" style="background-color: #e3e3e3;">
-                            <form method="POST">
+                            <form method="POST" action="#">
                                 {% csrf_token %}
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
@@ -53,7 +53,8 @@
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group mt-0 mb-1">
-                                          <button onclick="document.getElementById('home-btn').click()" name="login" class="col-md-12 btn btn-success" id="login" style="font-weight: bold"> Login </button>
+                                            <input type="submit" name="login" class="col-md-12 btn btn-success" id="login">
+                                          <!--<button onclick="document.getElementById('home-btn').click()" name="login" class="col-md-12 btn btn-success" id="login" style="font-weight: bold"> Login </button> -->
                                         </div>
                                     </div>
                                 </div>
