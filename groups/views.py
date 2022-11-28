@@ -2,18 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-
 from search.forms import SearchForm
 from music.models import Song
 from users.models import Profile
-
 import users
-
 from .forms import PostForm
 from .models import Community, Post
-
-
-
 
 def home(request):
     try:
@@ -31,15 +25,17 @@ def home(request):
             if form.is_valid():
                 post = form.save(commit=False)
                 post.poster = request.user
-                add_songs = list(filter(None, request.POST['songs_input'].split(',')))
                 post.save()
+                add_songs = list(filter(None, request.POST['songs_input'].split(',')))
                 if(add_songs):
                     for song in add_songs:
-                        print(song)
-                        add_songs = Song(song_id = song)
-                        add_songs.save()
-                        post.songs.add(add_songs)
-                        post.save() 
+                        try:
+                            newsong = Song(song_id = song)
+                            newsong.save()
+                        except:
+                            print("song already in library")
+                        tempsong = get_object_or_404(Song, song_id = song)
+                        post.songs.add(tempsong)
                 post.save()
                 return HttpResponseRedirect(request.path_info)
         if 'search_flag' in request.POST:
@@ -82,15 +78,17 @@ def community(request, community_name):
                     post = form.save(commit=False)
                     post.poster = request.user
                     add_songs = list(filter(None, request.POST['songs_input'].split(',')))
-                    print(add_songs)
                     post.save()
+                    print(add_songs)
                     if(add_songs):
                         for song in add_songs:
-                            print(song)
-                            add_songs = Song(song_id = song)
-                            add_songs.save()
-                            post.songs.add(add_songs)
-                            post.save() 
+                            try:
+                                newsong = Song(song_id = song)
+                                newsong.save()
+                            except:
+                                print("song already in library")
+                            tempsong = get_object_or_404(Song, song_id = song)
+                            post.songs.add(tempsong)
                     post.save()
                     return HttpResponseRedirect(request.path_info)
         if 'search_flag' in request.POST:
