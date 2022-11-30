@@ -72,6 +72,12 @@
           <p style="text-decoration: underline;">{{ p.playlist_name }}</p>
             {% for song in p.songs.all %}
               <p>{{ song.song_name }}</p>
+              <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary">
+                     Remove Song
+                </button>
+              </form>
             {% endfor %}
         </tc>
         {% endfor %}
