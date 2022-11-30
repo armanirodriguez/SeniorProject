@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
-from .forms import SearchForm,ListForm
+from .forms import SearchForm,ListForm,AddPlayListForm
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from music.models import Song,Playlist
@@ -10,6 +10,7 @@ from django.db import IntegrityError
 def search(request):
     searchform = SearchForm(request.POST)
     listform = ListForm(request.POST)
+    addPlayListForm = AddPlayListForm(request.POST)
     
     if request.method == 'POST':
         if searchform.is_valid():
@@ -18,8 +19,8 @@ def search(request):
             if request.user.is_authenticated:
                 profile = request.user.profile
                 playlists = profile.playlists.all()
-                return render(request, 'search.html', {'searchform': searchform, 'listform':listform, 'songs': songs, 'playlists':playlists})
-            return render(request, 'search.html', {'searchform': searchform, 'listform':listform, 'songs': songs})
+                return render(request, 'search.html', {'searchform': searchform, 'listform':listform, 'addPlayListForm':addPlayListForm, 'songs': songs, 'playlists':playlists})
+            return render(request, 'search.html', {'searchform': searchform, 'listform':listform,'addPlayListForm':addPlayListForm, 'songs': songs})
         else:
             raise Http404('Something went wrong')
     else:
@@ -27,8 +28,8 @@ def search(request):
         if request.user.is_authenticated:
                 profile = request.user.profile
                 playlists = profile.playlists.all()
-                return render(request, 'search.html', {'searchform': searchform, 'listform':listform, 'playlists':playlists})
-        return render(request, 'search.html', {'searchform': searchform,'listform':listform})
+                return render(request, 'search.html', {'searchform': searchform, 'listform':listform, 'playlists':playlists,'addPlayListForm':addPlayListForm})
+        return render(request, 'search.html', {'searchform': searchform,'listform':listform,'addPlayListForm':addPlayListForm})
 
 def search_songs(query):
     sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='616f55f94a904037a1eb6bdfbfa96d95', client_secret='2e262cfa37904ebeb74d43ff6903c9de'))
@@ -109,6 +110,24 @@ def removePlayList(request, playlist_name):
     except Profile.DoesNotExist:
         user_profile = Profile(user=request.user)
     playlists = user_profile.playlists.all()
-    playlist = playlists.filter(playlist_name=playlist_name).first()
+    playlist = playlists.filter(playlist_name=playlist_name, playlist_creator=user_profile.user).first()
     playlist.delete()
+    return redirect('/search')
+
+def addPlayList(request):
+    try:
+        user_profile = request.user.profile
+    except Profile.DoesNotExist:
+        user_profile = Profile(user=request.user)
+    addPlayListForm = AddPlayListForm(request.POST)
+    if addPlayListForm.is_valid():
+        playlistname = addPlayListForm.cleaned_data['name']
+    else:
+        raise Http404('Something went wrong')
+    playlists = user_profile.playlists.all()
+    playlist = playlists.filter(playlist_name=playlistname).first()
+    print(playlist)
+    if playlist is None:
+        playlist = playlists.create(playlist_name=playlistname,playlist_creator=user_profile.user)
+        user_profile.playlists.add(playlist)
     return redirect('/search')

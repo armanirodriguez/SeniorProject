@@ -64,6 +64,18 @@
     </center>
 {% endif %}
 <center>
+  {% if user.is_authenticated %}
+
+
+  <form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
+    {% csrf_token %}
+    <p>{{ addPlayListForm.name }}
+    <button type="submit" class="btn btn-secondary">
+         Create PlayList
+    </button>
+    </p>
+  </form>
+
       {% if playlists %}
       <h1>User Playlists</h1>
       <table>
@@ -89,6 +101,7 @@
         {% endfor %}
       </table>
       {% endif %}
+  {% endif %}
 </center>
 
 {% endblock mid-content %}
