@@ -57,6 +57,12 @@
                                         <tr style="padding: 10px; padding-bottom: 0px;">
                                             <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="500" height="100" 
                                             frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                            <form method='post' action="{% url 'users:removefaveSong' song.song_id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-secondary">
+                                                     Remove
+                                                </button>
+                                            </form>
                                         </tr>
                                     {% endfor %}    
                                     </table>

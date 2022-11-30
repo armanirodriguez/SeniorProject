@@ -90,3 +90,12 @@ class RegisterView(View):
             return redirect(to='../login')
 
         return render(request, self.template_name, {'form': form})
+
+def removefaveSong(request, song):
+    try:
+        user_profile = request.user.profile
+    except Profile.DoesNotExist:
+        user_profile = Profile(user=request.user)
+    oldsong = user_profile.fave_songs.get(song_id=song)
+    user_profile.fave_songs.remove(oldsong)
+    return redirect('/users/profile/')

@@ -8,6 +8,7 @@ from users.models import Profile
 import users
 from .forms import PostForm
 from .models import Community, Post
+import spotipy
 
 def home(request):
     try:
@@ -27,10 +28,13 @@ def home(request):
                 post.poster = request.user
                 post.save()
                 add_songs = list(filter(None, request.POST['songs_input'].split(',')))
+                sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='616f55f94a904037a1eb6bdfbfa96d95', client_secret='2e262cfa37904ebeb74d43ff6903c9de'))
                 if(add_songs):
                     for song in add_songs:
                         try:
                             newsong = Song(song_id = song)
+                            song_name = sp.track(song).get('name')
+                            newsong.song_name = song_name
                             newsong.save()
                         except:
                             print("song already in library")
@@ -80,10 +84,13 @@ def community(request, community_name):
                     add_songs = list(filter(None, request.POST['songs_input'].split(',')))
                     post.save()
                     print(add_songs)
+                    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='616f55f94a904037a1eb6bdfbfa96d95', client_secret='2e262cfa37904ebeb74d43ff6903c9de'))
                     if(add_songs):
                         for song in add_songs:
                             try:
                                 newsong = Song(song_id = song)
+                                song_name = sp.track(song).get('name')
+                                newsong.song_name = song_name
                                 newsong.save()
                             except:
                                 print("song already in library")
