@@ -128,7 +128,7 @@ def addPlayList(request):
     else:
         raise Http404('Something went wrong')
     playlists = user_profile.playlists.all()
-    playlist = playlists.filter(playlist_name=playlistname).first()
+    playlist = playlists.filter(playlist_name=playlistname,playlist_creator=user_profile.user).first()
     print(playlist)
     if playlist is None:
         playlist = playlists.create(playlist_name=playlistname,playlist_creator=user_profile.user)
