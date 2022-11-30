@@ -102,3 +102,13 @@ def removePlaySong(request, playlist_name, song_id):
     tempsong = get_object_or_404(Song, song_id = song_id)
     playlist.songs.remove(tempsong)
     return redirect('/search')
+
+def removePlayList(request, playlist_name):
+    try:
+        user_profile = request.user.profile
+    except Profile.DoesNotExist:
+        user_profile = Profile(user=request.user)
+    playlists = user_profile.playlists.all()
+    playlist = playlists.filter(playlist_name=playlist_name).first()
+    playlist.delete()
+    return redirect('/search')

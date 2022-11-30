@@ -70,6 +70,12 @@
         {% for p in playlists %}
         <tc>
           <p style="text-decoration: underline;">{{ p.playlist_name }}</p>
+          <form method='post' action="{% url 'search:removePlayList' p.playlist_name %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary">
+                 Remove PlayList
+            </button>
+          </form>
             {% for song in p.songs.all %}
               <p>{{ song.song_name }}</p>
               <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}">
