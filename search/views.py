@@ -12,13 +12,15 @@ def search(request):
     listform = ListForm(request.POST)
     addPlayListForm = AddPlayListForm(request.POST)
     
+    
     if request.method == 'POST':
         if searchform.is_valid():
             query = searchform.cleaned_data['query']
             songs = search_songs(query)
             if request.user.is_authenticated:
-                profile = request.user.profile
-                playlists = profile.playlists.all()
+                userprofile = request.user.profile
+                playlists = userprofile.playlists.all()
+                listform.fields['Playlist'].queryset = playlists
                 return render(request, 'search.html', {'searchform': searchform, 'listform':listform, 'addPlayListForm':addPlayListForm, 'songs': songs, 'playlists':playlists})
             return render(request, 'search.html', {'searchform': searchform, 'listform':listform,'addPlayListForm':addPlayListForm, 'songs': songs})
         else:
@@ -26,8 +28,9 @@ def search(request):
     else:
         searchform = SearchForm()
         if request.user.is_authenticated:
-                profile = request.user.profile
-                playlists = profile.playlists.all()
+                userprofile = request.user.profile
+                playlists = userprofile.playlists.all()
+                listform.fields['Playlist'].queryset = playlists
                 return render(request, 'search.html', {'searchform': searchform, 'listform':listform, 'playlists':playlists,'addPlayListForm':addPlayListForm})
         return render(request, 'search.html', {'searchform': searchform,'listform':listform,'addPlayListForm':addPlayListForm})
 
