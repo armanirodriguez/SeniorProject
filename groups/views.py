@@ -6,7 +6,7 @@ from search.forms import SearchForm
 from music.models import Song
 from users.models import Profile
 import users
-from .forms import PostForm
+from .forms import PostForm, createCommunityForm
 from .models import Community, Post
 import spotipy
 
@@ -48,6 +48,7 @@ def home(request):
                 query = searchForm.cleaned_data['query']
                 songs = search_songs(query)                
     posts = Post.objects.all().order_by('-timestamp')
+    # TODO: add community form to this
     return render(request, 'communityhome.html', {
         'form' : PostForm(),
         'posts' : posts,
@@ -55,7 +56,8 @@ def home(request):
         'searchForm': SearchForm(),
         'songs': songs,
         'user_profile': user_profile,
-        'users': users
+        'users': users,
+        'createCommunityForm': createCommunity
     })
 
 def search_songs(query):
@@ -135,3 +137,15 @@ def leave_community(request, community_name):
     user_profile.joined_communities.remove(comm)
     user_profile.save()
     return redirect('groups:community', community_name=community_name)
+
+def createCommunity(request):
+    form = createCommunityForm(request.POST)
+    if form.is_valid():
+        name = createCommunityForm.cleaned_data['name']
+    else:
+        raise Http404('Something went wrong')
+    communities = Community.objects.all()
+    community = communities.filter(name=name)
+    if community is None:
+        new_community = communities.create(name=name)
+    return redirect('/groups')

@@ -15,3 +15,6 @@ class PostForm(forms.ModelForm):
         self.fields['community'].widget.attrs.update({'style': 'border-radius: 8px; border-color: black; margin-left: 10px; padding: 5px;'})
     #content = forms.CharField(widget=forms.Textarea)
     #community = forms.ModelChoiceField(queryset=Community.objects.all(), empty_label=None)
+
+class createCommunityForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput)

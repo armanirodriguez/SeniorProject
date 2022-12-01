@@ -107,9 +107,18 @@
 {% block right-content %}
 <!-- TODO: Create Community -->
     <hr>
-    Create Community
+    <!-- Create Community
     <input placeholder="Name">
-    <button type="submit">Create</button>
+    <button type="submit">Create</button> -->
+    <form method="post" class="createCommunityForm" action="{% url 'groups:createCommunity' %}">
+      {% csrf_token %}
+      <h4>Create Community</h4>
+      <p>{{ createCommunityForm.name }}
+        <button type="submit">
+          Create
+        </button>
+      </p>
+    </form>
     <hr>
     <a href="{% url 'groups:home' %}" class="text-decoration-none text-white">Communities</a>
     <hr>
