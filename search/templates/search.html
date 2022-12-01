@@ -1,6 +1,10 @@
 {% extends "root_navbar.html" %}
 {% block title %}Song Search{% endblock title %}
 {% block mid-content %}
+
+<center> 
+<div class="card m-3 shadow" style="overflow:visible">
+
 <form method='post' class="searchform" action="{% url 'search:search' %}">
     {% csrf_token %}
     <br>
@@ -63,12 +67,17 @@
       </table>
     </center>
 {% endif %}
+
+</div>
+
+<div class="card m-3 shadow">
 <center>
   {% if user.is_authenticated %}
 
 
   <form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
     {% csrf_token %}
+    <h2 class="m-3" style="font-weight: bold; margin-right: 1rem"> Create Playlist</h2>
     <p>{{ addPlayListForm.name }}
     <button type="submit" class="btn btn-secondary">
          Create PlayList
@@ -77,14 +86,15 @@
   </form>
 
       {% if playlists %}
-      <h1>User Playlists</h1>
+      <h1 style="font-size: 15px; padding-top: 15px; padding-bottom: 12.5px; color: #636261">User Playlists</h1>
       <table>
         {% for p in playlists %}
+        <div class="card shadow-lg" style="margin-left: 50px; margin-right: 50px; margin-bottom: 20px;">
         <tc>
-          <p style="text-decoration: underline;">{{ p.playlist_name }}</p>
+          <p style="font-weight: bold; padding-top: 10px;">{{ p.playlist_name }}</p>
           <form method='post' action="{% url 'search:removePlayList' p.playlist_name %}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-secondary">
+            <button type="submit" class="btn btn-secondary" style="margin-bottom: 10px;">
                  Remove PlayList
             </button>
           </form>
@@ -92,10 +102,11 @@
               <p>{{ song.song_name }}</p>
               <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-secondary">
+                <button type="submit" class="btn btn-secondary" style="margin-bottom: 10px;">
                      Remove Song
                 </button>
               </form>
+            </div>
             {% endfor %}
         </tc>
         {% endfor %}
@@ -103,6 +114,7 @@
       {% endif %}
   {% endif %}
 </center>
+</div>
 
 {% endblock mid-content %}
 
