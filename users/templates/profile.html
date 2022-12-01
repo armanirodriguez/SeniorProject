@@ -5,7 +5,7 @@
     <div class="main-body">
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
-                <div class="card shadow" style="border-radius: 9px; border-color: #e3e3e3">
+                <div class="card shadow" style="border-radius: 9px;">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="/users{{ user.profile.avatar.url }}" alt="Placeholder" class="rounded-circle" height="150" width="150">
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="card mb-3 shadow" style="background-color: white; border-radius: 9px; border-color: #e3e3e3">
+                <div class="card mb-3 shadow" style="background-color: white; border-radius: 9px;">
                     <div class="card-body" style="color: black">
                         <div class="row">
                             <div class="col-sm-3">
@@ -46,21 +46,21 @@
 
                 <div class="row gutters-sm">
                     <div class="col-sm-12 mb-3">
-                        <div class="card h-100 shadow" style="background-color: white; border-radius: 9px; border-color: #e3e3e3">
+                        <div class="card h-100 shadow" style="background-color: white; border-radius: 9px;">
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3" style="font-weight: bold">Favorite Songs</h6>
                                 <!-- <div class="text" style="color: #696766">Stats or other profile elements can go here</div> -->
                                 {% if user.profile.fave_songs %}
                                 
-                                    <table>
+                                    <table style="display: inline-block">
                                         {% for song in faveSongs %}
-                                        <tr style="padding: 10px; padding-bottom: 0px;">
+                                        <tr style="padding: 10px; padding-bottom: 0px; display: inline">
                                             <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="500" height="100" 
-                                            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                                            <form method='post' action="{% url 'users:removefaveSong' song.song_id %}">
+                                            frameborder="0" allowtransparency="true" allow="encrypted-media" style="display: inline"></iframe>
+                                            <form method='post' action="{% url 'users:removefaveSong' song.song_id %}" style="display: inline;">
                                                 {% csrf_token %}
-                                                <button type="submit" class="btn btn-secondary">
-                                                     Remove
+                                                <button type="submit" class="btn btn-secondary" style="font-size: 7px; border-radius: 1000px; font-weight: bold;" >
+                                                     X
                                                 </button>
                                             </form>
                                         </tr>

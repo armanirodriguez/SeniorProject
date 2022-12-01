@@ -15,7 +15,7 @@
   </div>
 {% endif %}
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
-<div style="width: 100%; overflow-x:hidden">
+<div style="width: 100%; overflow-x:hidden; overflow:visible;">
 <div class="card text-black shadow m-3" style="overflow-x:hidden; margin-top: 10px;">
     <div class="card-header" style="background-color: white; margin-top: 10px;">
         <h3 stlye="font-weight: bolder; ">New Post</h3>
@@ -95,8 +95,8 @@
     </div>
   {% endfor %}
 {% else %}
-  <div class="card shadow text-black m-3" style="color: white; border-radius: 9px; border-color: #e3e3e3">
-    <div class="card-body" style="text-align:center; font-weight: bold; color: #636261">
+  <div class="card shadow text-black m-3" style="color: white; border-radius: 9px; overflow:visible;">
+    <div class="card-body" style="text-align:center; font-weight: bold; color: #636261; overflow:visible;">
       Welcome to the communities page. Select a community from the right navigation bar to get started.
     </div>
   </div>
