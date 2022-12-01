@@ -24,11 +24,12 @@
 
     <table>
         <thead>
-          <tr>
+          <tr style="width: 90%; overflow-x:scroll;">
             {% for song in songs %}
             <th>
-                <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="200" 
-                frameborder="1" allowtransparency="true" allow="encrypted-media"></iframe>
+                <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="175" height="200" 
+                frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px;">
+                </iframe>
             </th>
             {% endfor %}
           </tr>
@@ -40,7 +41,7 @@
             <td>
                 {% csrf_token %}
                 <center>
-                <a href="{% url 'search:fave_song' song %}">Add To Favorites</a>
+                <a href="{% url 'search:fave_song' song %}" style="text-decoration: none"> <button class="btn btn-light" style="border-color: #e3e3e3; font-weight: bold;"> Favorite + </button> </a>
                 </center>
 
                 {% if playlists%}
@@ -49,9 +50,11 @@
                   <br>
                   <center>
                       <p>{{ listform.Playlist }} 
-                      <button type="submit" class="btn btn-secondary">
-                          Add To Playlist
+                      <div style="padding-top: 20px;">
+                      <button type="submit" class="btn btn-light"  style="border-color: #e3e3e3; font-weight: bold;">
+                          Playlist +
                       </button>
+                    </div>
                   </p>
                   </center>
                 </form>
@@ -77,10 +80,10 @@
 
   <form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
     {% csrf_token %}
-    <h2 class="m-3" style="font-weight: bold; margin-right: 1rem"> Create Playlist</h2>
+    <h2 class="m-3" style="font-weight: bold; margin-right: 1rem"> Playlist</h2>
     <p>{{ addPlayListForm.name }}
     <button type="submit" class="btn btn-secondary">
-         Create PlayList
+         Create
     </button>
     </p>
   </form>
@@ -91,21 +94,26 @@
         {% for p in playlists %}
         <div class="card shadow-lg" style="margin-left: 50px; margin-right: 50px; margin-bottom: 20px;">
         <tc>
-          <p style="font-weight: bold; padding-top: 10px;">{{ p.playlist_name }}</p>
-          <form method='post' action="{% url 'search:removePlayList' p.playlist_name %}">
+          <p style="font-weight: bold; padding-top: 10px; font-size: 25px; padding-right: 10px;"> {{ p.playlist_name }} <form method='post' action="{% url 'search:removePlayList' p.playlist_name %}" style="float: left; padding-left: -10px">
             {% csrf_token %}
-            <button type="submit" class="btn btn-secondary" style="margin-bottom: 10px;">
-                 Remove PlayList
+            <button type="submit" class="btn btn-secondary" style="margin-bottom: 10px; font-size: 10px;">
+              Remove Playlist 
             </button>
-          </form>
+          
+          </form> </p>
+
             {% for song in p.songs.all %}
-              <p>{{ song.song_name }}</p>
-              <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary" style="margin-bottom: 10px;">
-                     Remove Song
+              <p>{{ song.song_name }}
+
+                <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}" style="float: left;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger" style="margin-bottom: 5px; font-size: 5px;">
+                    X
                 </button>
-              </form>
+                </form>
+
+              </p>
+              
             </div>
             {% endfor %}
         </tc>
@@ -118,5 +126,5 @@
 
 {% endblock mid-content %}
 
-{% block right-bar %}
-{% endblock right-bar %}
+{% block right-content %}
+{% endblock right-content %}

@@ -59,7 +59,7 @@
                                             frameborder="0" allowtransparency="true" allow="encrypted-media" style="display: inline"></iframe>
                                             <form method='post' action="{% url 'users:removefaveSong' song.song_id %}" style="display: inline;">
                                                 {% csrf_token %}
-                                                <button type="submit" class="btn btn-secondary" style="font-size: 7px; border-radius: 1000px; font-weight: bold;" >
+                                                <button type="submit" class="btn btn-light" style="font-size: 7px; border-radius: 1000px; font-weight: bold; border-color: #e3e3e3" >
                                                      X
                                                 </button>
                                             </form>
