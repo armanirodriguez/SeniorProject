@@ -4,7 +4,7 @@
 {% block mid-content %}
 {% if community.name %}
 <div class="m-3">
-  <h1 class="display-4">{{community.name}}</h1>
+  <h1 class="display-4" style="font-weight: bold;">{{community.name}}</h1>
     {{comm_users|length}} user(s) in this community
   <hr>
 </div>
@@ -15,8 +15,8 @@
   </div>
 {% endif %}
 <link rel="stylesheet" href="{% static 'groups/css/styles.css' %}">
-<div style="width: 100%; overflow-x:hiddenk">
-<div class="card text-black shadow m-3" style="overflow-x:hidden">
+<div style="width: 100%; overflow-x:hidden">
+<div class="card text-black shadow m-3" style="overflow-x:hidden; margin-top: 10px;">
     <div class="card-header" style="background-color: white; margin-top: 10px;">
         <h3 stlye="font-weight: bolder; ">New Post</h3>
     </div>
@@ -70,9 +70,9 @@
 {% if community.name %}
   <div style="width: 100%; overflow-x:hidden">
   {% for post in posts %}
-  <div class="card text-black m-3" style="background-color: #e3e3e3; border-radius: 9px; border-color: #e3e3e3">
-      <div class="card-header">
-        Posted: {{ post.timestamp }} by {{post.poster.username}}
+  <div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">
+      <div class="card-header" style="font-weight: bold; color: #636261">
+        {{ post.timestamp }} |  by {{post.poster.username}}
       </div>
       <div class="card-body">
         <blockquote class="blockquote mb-0 text-gray">
