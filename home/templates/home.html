@@ -2,55 +2,40 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 {% block mid-content %}
-{% for post in posts %}
-<div style="overflow-x:hidden; width:100%;">
-<li class="nav-item mt-3">
-    <div class="post-width">
-        <div class="p-3 bg-custom text-white">
-            <div class="row link-row">
-                <div class="col-4 link-col">
-                    <a href="{% url 'groups:community' post.community.name %}" onclick="document.getElementById('comm-btn').click()" class="white-link" style="font-size: 10px;">h/{{post.community.name}}</a>
-                </div>
-                <div class="col-4 link-col">
-                    <a href="{% url 'users:publicProfile' post.poster.username%}" class="white-link" style="font-size: 10px;">u/{{post.poster.username}}</a>
-                </div>
-                <div class="col-4 link-col">
-                    <a href="#" class="white-link" style="font-size: 10px;">{{post.timestamp}}</a>
-                </div>
-            </div>
-            <div class="bg-white rounded-3 text-white mt-3">
-                <div class="text-black">
-                    <p class="p-2">
-                        {{post.text}}
-                    </p>
-                    {% if post.songs.all %}
-                    <div style="margin-bottom:10px" class="table-responsive" id="song_scroll">
-                        <div class="container" style="height: 270px; width: 90%; overflow-x:scroll; text-align: center;">
-                            <table style="margin: 0 auto; width: 100%;">
-                                {% for song in post.songs.all %}
-                                    <td style="padding: 10px; padding-bottom: 0px;">
-                                        <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="200" height="250" 
-                                        frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                                    </td>
-                                {% endfor %}    
-                            </table>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            <!--
-            <div class="bg-white rounded-3 text-white mt-3">
-                <div class="text-black">
-                    <p class="p-2">
-                        SONGS HERE
-                    </p>
-                </div>
-            </div> -->
-        </div>
-    </div>
-</li>
+
+<div class="m-3" style="padding-top: 10px;">
+    {% if user.is_authenticated %}
+        <h4 class="display-7" style="text-align:center; font-size: 30px; font-weight: bold; padding-top: 10px;"> Welcome back, {{ user.username }}</h4>
+    {% else %}
+        <h4 class="display-7" style="text-align:center; font-size: 30px; font-weight: bold;"> Welcome to herddit</h4>
+    {% endif %}
+    
 </div>
+
+{% for post in posts %}
+<div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">
+    <div class="card-header" style="font-weight: bold; color: #636261">
+      {{ post.timestamp }} in <a href="{% url 'groups:community' post.community.name %}" onclick="document.getElementById('comm-btn').click()" style="color: #636261;" >h/{{post.community.name}}</a> |  by <a href="{% url 'users:publicProfile' post.poster.username%}" style="color: #636261; ">u/{{post.poster.username}}</a>
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0 text-gray">
+        <p> {{ post.text }} </p>
+      </blockquote>
+      {% if post.songs.all %}
+      <div class="container" style="height: 150px; width: 90%; overflow-x:scroll; text-align: center; background-color: white;">
+      <table>
+        {% for song in post.songs.all %}
+        <td style="padding: 10px; padding-bottom: 0px;">
+            <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="250" height="100" 
+            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </td>
+      {% endfor %}    
+    </table>
+  </div>
+  {% endif %}
+
+    </div>
+  </div>
 {% endfor %}
 {% endblock %}
 

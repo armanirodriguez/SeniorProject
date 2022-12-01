@@ -72,18 +72,18 @@
   {% for post in posts %}
   <div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">
       <div class="card-header" style="font-weight: bold; color: #636261">
-        {{ post.timestamp }} |  by {{post.poster.username}}
+        {{ post.timestamp }} |  by <a href="{% url 'users:publicProfile' post.poster.username%}" style="color: #636261; ">u/{{post.poster.username}}</a>
       </div>
       <div class="card-body">
         <blockquote class="blockquote mb-0 text-gray">
           <p> {{ post.text }} </p>
         </blockquote>
         {% if post.songs.all %}
-        <div class="container" style="height: 270px; width: 90%; overflow-x:scroll; text-align: center;">
+        <div class="container" style="height: 150px; width: 90%; overflow-x:scroll; text-align: center; background-color: white;">
         <table>
           {% for song in post.songs.all %}
           <td style="padding: 10px; padding-bottom: 0px;">
-              <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="200" height="250" 
+              <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="250" height="100" 
               frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
           </td>
         {% endfor %}    
