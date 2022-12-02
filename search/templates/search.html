@@ -11,7 +11,7 @@
     <center>
         <h2 style="font-weight: bold; margin-right: 1rem">Song Search</h2>
         <p>{{ searchform.query }} 
-        <button type="submit" class="btn btn-secondary">
+        <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; border-color: #46c4f2">
             GO
         </button>
     </p>
@@ -28,7 +28,7 @@
             {% for song in songs %}
             <th>
                 <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="175" height="200" 
-                frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px;">
+                frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px">
                 </iframe>
             </th>
             {% endfor %}
@@ -84,7 +84,7 @@
       {% csrf_token %}
       <h2 style="font-weight: bold; margin-right: 1rem; padding-top: 15px;"> Playlist </h2>
       <p>{{ addPlayListForm.name }}
-      <button type="submit" class="btn btn-secondary">
+      <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; border-color: #46c4f2">
            Create
       </button>
       </p>
@@ -111,7 +111,7 @@
 
                   <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}" style="float: right;">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger" style="background-color: #fa5269; font-size: 6px;">
+                    <button type="submit" class="btn btn-light" style="font-size: 6px; border-color: #e3e3e3">
                          X
                     </button>
                   </form>
