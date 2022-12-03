@@ -11,7 +11,7 @@
     <center>
         <h2 style="font-weight: bold; margin-right: 1rem">Song Search</h2>
         <p>{{ searchform.query }} 
-        <button type="submit" class="btn btn-secondary">
+        <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; border-color: #46c4f2">
             GO
         </button>
     </p>
@@ -28,7 +28,7 @@
             {% for song in songs %}
             <th>
                 <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="175" height="200" 
-                frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px;">
+                frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px">
                 </iframe>
             </th>
             {% endfor %}
@@ -73,55 +73,60 @@
 
 </div>
 
+
+{% comment %} Playlist Section  {% endcomment %}
 <div class="card m-3 shadow">
-<center>
-  {% if user.is_authenticated %}
+  <center>
+    {% if user.is_authenticated %}
+  
+  
+    <form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
+      {% csrf_token %}
+      <h2 style="font-weight: bold; margin-right: 1rem; padding-top: 15px;"> Playlist </h2>
+      <p>{{ addPlayListForm.name }}
+      <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; border-color: #46c4f2">
+           Create
+      </button>
+      </p>
+    </form>
+        {% if playlists %}
+        <h5 style="color: #636261; margin-bottom=-100px;">User Playlists</h5>
+        <table>
+          {% for p in playlists %}
+          <div class="card m-5 shadow" style="overflow-y:scroll; height: 300px;">
+          <tc>
+            <p style="font-weight:bold; padding-top: 10px; font-size: 25px;">{{ p.playlist_name }}
 
-
-  <form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
-    {% csrf_token %}
-    <h2 class="m-3" style="font-weight: bold; margin-right: 1rem"> Playlist</h2>
-    <p>{{ addPlayListForm.name }}
-    <button type="submit" class="btn btn-secondary">
-         Create
-    </button>
-    </p>
-  </form>
-
-      {% if playlists %}
-      <h1 style="font-size: 15px; padding-top: 15px; padding-bottom: 12.5px; color: #636261">User Playlists</h1>
-      <table>
-        {% for p in playlists %}
-        <div class="card shadow-lg" style="margin-left: 50px; margin-right: 50px; margin-bottom: 20px;">
-        <tc>
-          <p style="font-weight: bold; padding-top: 10px; font-size: 25px; padding-right: 10px;"> {{ p.playlist_name }} <form method='post' action="{% url 'search:removePlayList' p.playlist_name %}" style="float: left; padding-left: -10px">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-secondary" style="margin-bottom: 10px; font-size: 10px;">
-              Remove Playlist 
-            </button>
-          
-          </form> </p>
-
-            {% for song in p.songs.all %}
-              <p>{{ song.song_name }}
-
-                <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}" style="float: left;">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-danger" style="margin-bottom: 5px; font-size: 5px;">
-                    X
+              <form method='post' action="{% url 'search:removePlayList' p.playlist_name %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-light" style="font-size: 7px; border-color: #e3e3e3;">
+                     Delete
                 </button>
-                </form>
+              </form>
 
-              </p>
+            </p>
+            
+              {% for song in p.songs.all %}
+                <p>{{ song.song_name }}
+
+                  <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}" style="float: right;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-light" style="font-size: 6px; border-color: #e3e3e3">
+                         X
+                    </button>
+                  </form>
+
+                </p>
+                
               
-            </div>
             {% endfor %}
-        </tc>
-        {% endfor %}
-      </table>
-      {% endif %}
-  {% endif %}
-</center>
+          </tc>
+        </div>
+          {% endfor %}
+        </table>
+        {% endif %}
+    {% endif %}
+  </center>
 </div>
 
 {% endblock mid-content %}
