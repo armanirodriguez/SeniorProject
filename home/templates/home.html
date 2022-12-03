@@ -20,6 +20,14 @@
     <div class="card-body">
       <blockquote class="blockquote mb-0 text-gray">
         <p> {{ post.text }} </p>
+          <p>Rating: {{ post.score }} </p>
+          <form action="{% url 'groups:rate' post.id 1  %}">
+                <input type="submit" value="Upvote" />
+            </form>
+
+            <form action="{% url 'groups:rate' post.id 0  %}">
+                <input type="submit" value="Downvote" />
+            </form>
       </blockquote>
       {% if post.songs.all %}
       <div class="container" style="height: 150px; width: 90%; overflow-x:scroll; text-align: center; background-color: white;">
@@ -43,14 +51,38 @@
 <!-- RIGHT SIDE NAV BAR -->
 {% block right-content %}
     <hr>
-    Trending
+    <a href="{% url 'groups:home' %}" class="text-decoration-none text-white">Communities</a>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <div class="p-3 mb-2 bg-custom text-white">Placeholder</div>
-        </li>
-    </ul>
-    </div>
-    
+    <div id="community-list-wrap">
+      <ul class="nav nav-pills flex-column mb-auto m-1">
+        {% for community in communities %}
+        <a class="text-decoration-none text-white" href="{% url 'groups:community' community.name %}">
+        <li id="community-{{community.name}}" class="community-link nav-item p-2 text-white rounded mb-1" style="background-color: #02baff;">
+          <div class="row flex-nowrap p-0 m-0" style="width:68%">
+              <div class="col">
+                {{community.name}}
+              </div>
+              <div class="col my-auto">
+                {% if user_profile %}
+                  {% if community in user_profile.joined_communities.all %}
+                    <a href="{% url 'groups:leave_community' community.name %}" class="btn btn-light" style="height:40px; width:40px">-</a>
+                  {% else %}
+                    <a href="{% url 'groups:join_community' community.name %}" class="btn btn-light" style="height: 40px; width:40px">+</a>
+                  {% endif %}
+                {% endif %}
+              </div>
+          </div>
 
+        </li>
+        </a>
+        {% endfor %}
+      </ul>
+      <ul class="nav nav-pills flex-column mb-auto m-1">
+          <li class="nav-item">
+          </li>
+      </ul>
+    </div>
+</div>
+<script src="{% static 'groups/js/right-buttons.js' %}"></script>
+<script src="/static/groups/js/checkbox.js?v22"></script>
 {% endblock %}

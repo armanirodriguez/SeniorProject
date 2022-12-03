@@ -77,6 +77,15 @@
       <div class="card-body">
         <blockquote class="blockquote mb-0 text-gray">
           <p> {{ post.text }} </p>
+            <p>Rating: {{ post.score }} </p>
+            <form action="{% url 'groups:rate' post.id 1  %}">
+                <input type="submit" value="Upvote" />
+            </form>
+
+            <form action="{% url 'groups:rate' post.id 0  %}">
+                <input type="submit" value="Downvote" />
+            </form>
+
         </blockquote>
         {% if post.songs.all %}
         <div class="container" style="height: 150px; width: 90%; overflow-x:scroll; text-align: center; background-color: white;">

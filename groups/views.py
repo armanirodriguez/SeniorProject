@@ -135,3 +135,18 @@ def leave_community(request, community_name):
     user_profile.joined_communities.remove(comm)
     user_profile.save()
     return redirect('groups:community', community_name=community_name)
+
+def rate(request, post_id, rating):
+    post = Post.objects.get(id=post_id)
+    if not request.user.is_authenticated:
+        # Failure, not authenticated
+        return redirect('groups:community', community_name=post.community.name)
+    elif request.user in post.raters.all():
+        # Failure, cannot rate posts twice
+        return redirect('groups:community', community_name=post.community.name)
+    post.score += 1 if rating > 0 else -1
+    post.raters.add(request.user)
+    post.save()
+    return redirect('groups:community', community_name=post.community.name)
+
+
