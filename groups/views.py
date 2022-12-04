@@ -20,7 +20,6 @@ def home(request):
     except Profile.DoesNotExist:
         user_profile = Profile(user=request.user)
     users = Profile.objects.all()
-    comments = ""
     songs = ""
     if request.method == "POST":
         if 'post_flag' in request.POST:
@@ -59,7 +58,6 @@ def home(request):
         'songs': songs,
         'user_profile': user_profile,
         'users': users,
-        'comments': comments,
         'comment_form': CommentForm(),
         'createCommunityForm': communityForm
     })
@@ -119,6 +117,7 @@ def community(request, community_name):
         'communities' : Community.objects.all(),
         'comm_users': comm_users,
         'user_profile': user_profile,
+        'comment_form': CommentForm(),
     })
 
 
@@ -167,7 +166,8 @@ def add(request, post_id):
             new_comment.save()
     else:
         comment_form = CommentForm()
-    return redirect('groups:home', {'comments':post.comments.filter(post=post)})
+    return redirect('groups:home')
+
 def createCommunity(request):
     form = createCommunityForm(request.POST)
     if form.is_valid():
