@@ -55,7 +55,9 @@
                     <label for="message-text" class="col-form-label">Add a comment</label>
                     <form method="POST" action="{% url 'groups:add' post.id %}">
                       {% csrf_token %}
-                      {{comment_form.as_p}}
+                      <p>
+                        {{comment_form.as_p}}
+                      </p>
                       <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
                     </form>
                   </div>
