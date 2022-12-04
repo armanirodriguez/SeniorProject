@@ -69,6 +69,7 @@ def search_songs(query):
     return tracks
 
 def community(request, community_name):
+    communityForm = createCommunityForm(request.POST)
     songs = "t"
     try:
         if(request.user.is_authenticated):
@@ -117,7 +118,11 @@ def community(request, community_name):
         'communities' : Community.objects.all(),
         'comm_users': comm_users,
         'user_profile': user_profile,
+<<<<<<< HEAD
         'comment_form': CommentForm(),
+=======
+        'createCommunityForm': communityForm
+>>>>>>> 4cd71fbf48ddf763125fb8537f6c8c632179ab76
     })
 
 
