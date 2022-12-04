@@ -11,6 +11,7 @@ from .models import Community, Post
 import spotipy
 
 def home(request):
+    communityForm = createCommunityForm(request.POST)
     try:
         if(request.user.is_authenticated):
             user_profile = request.user.profile
@@ -46,7 +47,7 @@ def home(request):
             searchForm = SearchForm(request.POST)
             if searchForm.is_valid():
                 query = searchForm.cleaned_data['query']
-                songs = search_songs(query)                
+                songs = search_songs(query)
     posts = Post.objects.all().order_by('-timestamp')
     # TODO: add community form to this
     return render(request, 'communityhome.html', {
@@ -57,7 +58,7 @@ def home(request):
         'songs': songs,
         'user_profile': user_profile,
         'users': users,
-        'createCommunityForm': createCommunity
+        'createCommunityForm': communityForm
     })
 
 def search_songs(query):
@@ -141,11 +142,12 @@ def leave_community(request, community_name):
 def createCommunity(request):
     form = createCommunityForm(request.POST)
     if form.is_valid():
-        name = createCommunityForm.cleaned_data['name']
+        community_name = form.cleaned_data['name']
     else:
         raise Http404('Something went wrong')
     communities = Community.objects.all()
-    community = communities.filter(name=name)
+    community = communities.filter(name=community_name)
     if community is None:
-        new_community = communities.create(name=name)
+        new_community = communities.create(name=community_name)
+        communities.add(new_community)
     return redirect('/groups')
