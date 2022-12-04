@@ -107,6 +107,16 @@
 
 {% block right-content %}
     <hr>
+    <form method="post" class="createCommunityForm" action="{% url 'groups:createCommunity' %}">
+      {% csrf_token %}
+      <h4>Create Community</h4>
+      <p>{{ createCommunityForm.name }}
+        <button type="submit">
+          Create
+        </button>
+      </p>
+    </form>
+    <hr>
     <a href="{% url 'groups:home' %}" class="text-decoration-none text-white">Communities</a>
     <hr>
     <div id="community-list-wrap">

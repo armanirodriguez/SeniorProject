@@ -6,11 +6,12 @@ from search.forms import SearchForm
 from music.models import Song
 from users.models import Profile
 import users
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, createCommunityForm
 from .models import Community, Post
 import spotipy
 
 def home(request):
+    communityForm = createCommunityForm(request.POST)
     try:
         if(request.user.is_authenticated):
             user_profile = request.user.profile
@@ -47,8 +48,9 @@ def home(request):
             searchForm = SearchForm(request.POST)
             if searchForm.is_valid():
                 query = searchForm.cleaned_data['query']
-                songs = search_songs(query)                
+                songs = search_songs(query)
     posts = Post.objects.all().order_by('-timestamp')
+    # TODO: add community form to this
     return render(request, 'communityhome.html', {
         'form' : PostForm(),
         'posts' : posts,
@@ -58,7 +60,8 @@ def home(request):
         'user_profile': user_profile,
         'users': users,
         'comments': comments,
-        'comment_form': CommentForm()
+        'comment_form': CommentForm(),
+        'createCommunityForm': communityForm
     })
 
 def search_songs(query):
@@ -165,3 +168,18 @@ def add(request, post_id):
     else:
         comment_form = CommentForm()
     return redirect('groups:home', {'comments':post.comments.filter(post=post)})
+def createCommunity(request):
+    form = createCommunityForm(request.POST)
+    if form.is_valid():
+        community_name = form.cleaned_data['name'] # code works up to here
+    else:
+        raise Http404('Something went wrong')
+    communities = Community.objects.all()
+    community = communities.filter(name=community_name)
+    if not community:
+        new_community = communities.create(name=community_name)
+        new_community.save()
+    return redirect('/groups')
+
+def boom():
+    return 2/0

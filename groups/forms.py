@@ -20,3 +20,5 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('body',)
+class createCommunityForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput)
