@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Community, Post
+from .models import Community, Post, Comment
 
 class PostForm(forms.ModelForm):
     post_flag = forms.BooleanField(widget=forms.HiddenInput(), initial=True)
@@ -15,3 +15,8 @@ class PostForm(forms.ModelForm):
         self.fields['community'].widget.attrs.update({'style': 'border-radius: 8px; border-color: black; margin-left: 10px; padding: 5px;'})
     #content = forms.CharField(widget=forms.Textarea)
     #community = forms.ModelChoiceField(queryset=Community.objects.all(), empty_label=None)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('body',)

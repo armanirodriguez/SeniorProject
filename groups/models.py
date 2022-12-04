@@ -15,3 +15,9 @@ class Post(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     songs = models.ManyToManyField(Song, blank=True)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+    poster = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)

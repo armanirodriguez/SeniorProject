@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from groups.models import Post
 from groups.models import Community
-
+from groups.forms import CommentForm
 
 # Create your views here.
 def home(request):
@@ -12,4 +12,5 @@ def home(request):
     return render(request, 'home.html', {
         'posts': posts,
         'communities': communities,
+        'comment_form': CommentForm()
     })

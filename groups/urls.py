@@ -10,4 +10,5 @@ urlpatterns = [
     path("joincommunity/<str:community_name>", views.join_community, name='join_community'),
     path("leavecommunity/<str:community_name>", views.leave_community, name='leave_community'),
     path("rate/<int:post_id>/<int:rating>", views.rate, name='rate'),
+    path("add/<int:post_id>", views.add, name='add'),
 ]

@@ -6,7 +6,7 @@ from search.forms import SearchForm
 from music.models import Song
 from users.models import Profile
 import users
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from .models import Community, Post
 import spotipy
 
@@ -19,6 +19,7 @@ def home(request):
     except Profile.DoesNotExist:
         user_profile = Profile(user=request.user)
     users = Profile.objects.all()
+    comments = ""
     songs = ""
     if request.method == "POST":
         if 'post_flag' in request.POST:
@@ -55,7 +56,9 @@ def home(request):
         'searchForm': SearchForm(),
         'songs': songs,
         'user_profile': user_profile,
-        'users': users
+        'users': users,
+        'comments': comments,
+        'comment_form': CommentForm()
     })
 
 def search_songs(query):
@@ -65,7 +68,7 @@ def search_songs(query):
     return tracks
 
 def community(request, community_name):
-    songs = ""
+    songs = "t"
     try:
         if(request.user.is_authenticated):
             user_profile = request.user.profile
@@ -149,4 +152,16 @@ def rate(request, post_id, rating):
     post.save()
     return redirect('groups:community', community_name=post.community.name)
 
-
+def add(request, post_id):
+    post = Post.objects.get(id=post_id)
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.poster = request.user
+            new_comment.post = post
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+    return redirect('groups:home', {'comments':post.comments.filter(post=post)})
