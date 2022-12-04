@@ -142,12 +142,15 @@ def leave_community(request, community_name):
 def createCommunity(request):
     form = createCommunityForm(request.POST)
     if form.is_valid():
-        community_name = form.cleaned_data['name']
+        community_name = form.cleaned_data['name'] # code works up to here
     else:
         raise Http404('Something went wrong')
     communities = Community.objects.all()
     community = communities.filter(name=community_name)
-    if community is None:
+    if not community:
         new_community = communities.create(name=community_name)
-        communities.add(new_community)
+        new_community.save()
     return redirect('/groups')
+
+def boom():
+    return 2/0
