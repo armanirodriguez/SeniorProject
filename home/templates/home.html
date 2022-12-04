@@ -39,44 +39,50 @@
     </table>
   </div>
   {% endif %}
-        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal{{post.id}}" data-whatever="@getbootstrap">View Comments</button>
+  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal{{post.id}}" data-whatever="@getbootstrap">View Comments</button>
 
-        <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{post.id}}" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Add a comment</label>
-                    <form method="POST" action="{% url 'groups:add' post.id %}">
-                      {% csrf_token %}
-                      <p>
-                        {{comment_form.as_p}}
-                      </p>
-                      <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-                    </form>
-                  </div>
-                <hr>
-                <div>
-                  <h5>Comments</h5>
-                    {% for comment in post.comments.all %}
-                      {% if comment.post.id == post.id %}
-                        {{comment.body}}
-                      {% endif %}
-                    {% endfor %}
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
+  <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{post.id}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Add a comment</label>
+              <form method="POST" action="{% url 'groups:add' post.id %}">
+                {% csrf_token %}
+                  {{comment_form.as_p}}
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
             </div>
+          <hr>
+          <div>
+            <h5>Comments</h5>
+              {% for comment in post.comments.all %}
+                {% if comment.post.id == post.id %}
+                  <div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">
+                    <div class="card-header" style="font-weight: bold; color: #636261">
+                      {{ comment.created_on }} by <a href="{% url 'users:publicProfile' comment.poster.username%}" style="color: #636261; ">u/{{comment.poster.username}}</a>
+                    </div>
+                    <div class="card-body">
+                      {{comment.body}}
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
           </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     </div>
   </div>
 {% endfor %}

@@ -118,11 +118,8 @@ def community(request, community_name):
         'communities' : Community.objects.all(),
         'comm_users': comm_users,
         'user_profile': user_profile,
-<<<<<<< HEAD
         'comment_form': CommentForm(),
-=======
         'createCommunityForm': communityForm
->>>>>>> 4cd71fbf48ddf763125fb8537f6c8c632179ab76
     })
 
 
@@ -171,7 +168,8 @@ def add(request, post_id):
             new_comment.save()
     else:
         comment_form = CommentForm()
-    return redirect('groups:home')
+    return redirect('groups:community', community_name=post.community.name)
+
 
 def createCommunity(request):
     form = createCommunityForm(request.POST)

@@ -17,6 +17,7 @@ class PostForm(forms.ModelForm):
     #community = forms.ModelChoiceField(queryset=Community.objects.all(), empty_label=None)
 
 class CommentForm(forms.ModelForm):
+    body = forms.CharField(widget=forms.Textarea, label='')
     class Meta:
         model = Comment
         fields = ('body',)

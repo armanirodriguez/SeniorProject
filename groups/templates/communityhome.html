@@ -107,10 +107,8 @@
                 <label for="message-text" class="col-form-label">Add a comment</label>
                 <form method="POST" action="{% url 'groups:add' post.id %}">
                   {% csrf_token %}
-                  <p>
                     {{comment_form.as_p}}
-                  </p>
-                  <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div>
             <hr>
@@ -118,7 +116,14 @@
               <h5>Comments</h5>
                 {% for comment in post.comments.all %}
                   {% if comment.post.id == post.id %}
-                    {{comment.body}}
+                    <div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">
+                      <div class="card-header" style="font-weight: bold; color: #636261">
+                        {{ comment.created_on }} by <a href="{% url 'users:publicProfile' comment.poster.username%}" style="color: #636261; ">u/{{comment.poster.username}}</a>
+                      </div>
+                      <div class="card-body">
+                        {{comment.body}}
+                      </div>
+                    </div>
                   {% endif %}
                 {% endfor %}
             </div>
