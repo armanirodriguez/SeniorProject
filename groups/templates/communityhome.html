@@ -71,7 +71,7 @@
 {% if community.name %}
   <div style="width: 100%; overflow-x:hidden">
   {% for post in posts %}
-  <div class="card text-black m-3" style="background-color: #e3e3e3; border-radius: 9px; border-color: #e3e3e3">
+  <div class="card text-black m-3" style="background-color: white; border-radius: 9px; border-color: #e3e3e3">
       <div class="card-header">
         Posted: {{ post.timestamp }} by {{post.poster.username}}
       </div>
@@ -90,48 +90,21 @@
         {% endfor %}    
       </table>
     </div>
-    <div class="card-body">
-      <blockquote class="blockquote mb-0 text-gray">
-        <p> {{ post.text }} </p>
-          <p>Rating: {{ post.score }} </p>
-          <form action="{% url 'groups:rate' post.id 1  %}">
-              <input type="submit" value="Upvote" />
-          </form>
-
-          <form action="{% url 'groups:rate' post.id 0  %}">
-              <input type="submit" value="Downvote" />
-          </form>
-
-      </blockquote>
-      {% if post.songs.all %}
-      <div class="container" style="height: 150px; width: 90%; overflow-x:scroll; text-align: center; background-color: white;">
-      <table>
-        {% for song in post.songs.all %}
-        <td style="padding: 10px; padding-bottom: 0px;">
-            <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="250" height="100" 
-            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-        </td>
-      {% endfor %}    
-    </table>
-  </div>
-  {% endif %}
-
-  <!-- Test -->
-
+    {% endif %}
     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal{{post.id}}" data-whatever="@getbootstrap">View Comments</button>
 
     <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{post.id}}" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Comments</h5>
+            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
               <div class="form-group">
-                <label for="message-text" class="col-form-label">New Comment</label>
+                <label for="message-text" class="col-form-label">Add a comment</label>
                 <form method="POST" action="{% url 'groups:add' post.id %}">
                   {% csrf_token %}
                     {{comment_form.as_p}}
@@ -140,6 +113,7 @@
               </div>
             <hr>
             <div>
+              <h5>Comments</h5>
                 {% for comment in post.comments.all %}
                   {% if comment.post.id == post.id %}
                     <div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">

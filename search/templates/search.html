@@ -2,8 +2,8 @@
 {% block title %}Song Search{% endblock title %}
 {% block mid-content %}
 
-<center> 
-<div class="card m-3 shadow" style="overflow:visible">
+<div style="width: 100%;">
+<div class="card m-3 shadow">
 
 <form method='post' class="searchform" action="{% url 'search:search' %}">
     {% csrf_token %}
@@ -21,13 +21,12 @@
 
 {% if songs %}
 <center>
-
     <table>
         <thead>
           <tr style="width: 90%; overflow-x:scroll;">
             {% for song in songs %}
             <th>
-                <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="175" height="200" 
+                <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="160" height="200" 
                 frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px">
                 </iframe>
             </th>
@@ -68,6 +67,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </center>
 {% endif %}
 
@@ -128,8 +128,10 @@
     {% endif %}
   </center>
 </div>
-
+</center>
+</div>
 {% endblock mid-content %}
 
-{% block right-content %}
-{% endblock right-content %}
+
+{% block right-bar %}
+{% endblock right-bar %}
