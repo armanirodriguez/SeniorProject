@@ -32,13 +32,43 @@
               </form>
               <form method="post" class="form" action="" style="margin-top: 10px;">
                 {% csrf_token %}
-                <center>
+                <div style="color: white">
+                  {{form.as_p }}
+                </div>
+                <input type="text" id="songs_input_id" name="songs_input" value="" style="display: none">
+                <input type="submit" class="btn btn-primary" value=Post>
+            </form>
+            <form method="post" class="form" action="">
+              {% csrf_token %}
+              <center>
+                <div style="color: white;">
+                  <h2>Song Search</h2>
+                  {{searchForm}}
+                  <input type="submit" class="btn btn-primary" value=GO>
+                </div>
+            </form>
+            {{songs}}
+            {% if songs %}
+              <center>
+                <div class="container" style="height: 320px; width: 90%; overflow-x:scroll; text-align: center;">
+                  <table>
+                    {% for song in songs %}
+                    <td style="padding: 10px;">
+                        <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
+                        frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        <input type="checkbox" id="{{song}}" class="box btn-check" />
+                        <label class="btn btn-outline-light" for="{{song}}">Add</label>
+                    </td>
+                    {% endfor %}
+                    </table>
                   <div style="color: #636261; font-weight: bold; font-size: 12px;">
                     <h2 style="font-size: 14px;">Song Search</h2>
-                    {{searchForm}}
-                    <input type="submit" class="btn btn-secondary" style="border:none; font-weight:bold; font-size: 12px" value=GO>
-                  </div>
-              </form>
+                    <form>
+                      {{searchForm}}
+                      <input type="submit" class="btn btn-secondary" style="border:none; font-weight:bold; font-size: 12px" value=GO>
+                    </form>
+                    </div>
+                </center>
               {% if songs %}
                 <center>
                   <div class="container" style="height: 320px; width: 90%; overflow-x:scroll; text-align: center;">

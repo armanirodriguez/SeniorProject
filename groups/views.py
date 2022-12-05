@@ -20,7 +20,7 @@ def home(request):
     except Profile.DoesNotExist:
         user_profile = Profile(user=request.user)
     users = Profile.objects.all()
-    songs = ""
+    songs = None
     if request.method == "POST":
         if 'post_flag' in request.POST:
             form = PostForm(request.POST)
@@ -70,7 +70,7 @@ def search_songs(query):
 
 def community(request, community_name):
     communityForm = createCommunityForm(request.POST)
-    songs = "t"
+    songs = ""
     try:
         if(request.user.is_authenticated):
             user_profile = request.user.profile
