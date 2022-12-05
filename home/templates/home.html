@@ -18,14 +18,18 @@
     <div class="card-body">
       <blockquote class="blockquote mb-0 text-gray">
         <p> {{ post.text }} </p>
-          <p>Rating: {{ post.score }} </p>
-          <form action="{% url 'groups:rate' post.id 1  %}">
+
+          <div>
+          <form action="{% url 'groups:rate' post.id 1  %}" style="display: inline-block;">
                 <input type="submit" value="Upvote" />
             </form>
 
-            <form action="{% url 'groups:rate' post.id 0  %}">
+            <p style="display: inline-block; font-weight: bold;"> {{ post.score }} </p>
+
+            <form action="{% url 'groups:rate' post.id 0  %}" style="display: inline-block;">
                 <input type="submit" value="Downvote" />
             </form>
+          </div>
       </blockquote>
       {% if post.songs.all %}
       <div class="container" style="height: 120px; width: 90%; overflow-x:scroll; text-align: center; background-color: white;">
