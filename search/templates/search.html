@@ -107,8 +107,10 @@
             </p>
             
               {% for song in p.songs.all %}
-                <p>{{ song.song_name }}
-
+                <p>
+                  <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="400" height="80" 
+                  frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px">
+                  </iframe>
                   <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}" style="float: right;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-light" style="font-size: 6px; border-color: #e3e3e3">
