@@ -32,7 +32,7 @@
             <form method="post" class="form" action="">
               {% csrf_token %}
               <center>
-                <div style="color: #636261">
+                <div style="color: #636261; margin-bottom: 20px;">
                   <h2>Song Search</h2>
                   {{searchForm}}
                   <input type="submit" class="btn btn-primary" value=GO>
@@ -41,14 +41,14 @@
 
             {% if songs %}
               <center>
-                <div class="container" style="height: 320px; width: 90%; overflow-x:scroll; text-align: center;">
+                <div class="container" style="height: 340px; width: 90%; overflow-x:scroll; text-align: center;">
                   <table>
                     {% for song in songs %}
                     <td style="padding: 10px;">
                         <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="200" height="250" 
                         frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         <input type="checkbox" id="{{song}}" class="box btn-check" />
-                        <label class="btn btn-outline-light" for="{{song}}">Add</label>
+                        <label class="btn btn-light" style="border-color: #e3e3e3" for="{{song}}">Add</label>
                     </td>
                     {% endfor %}
                     </table>
@@ -165,7 +165,7 @@
       {% csrf_token %}
       <h4>Create Community</h4>
       <p>{{ createCommunityForm.name }}
-        <button type="submit" class="btn btn-light">
+        <button type="submit" class="btn btn-light" style="margin-top: 10px">
           Create
         </button>
       </p>
