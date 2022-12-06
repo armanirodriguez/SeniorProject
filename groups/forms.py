@@ -22,4 +22,4 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('body',)
 class createCommunityForm(forms.Form):
-    name = forms.CharField(widget=forms.TextInput)
+    name = forms.CharField(widget=forms.TextInput(attrs={ 'style' : 'border-radius: 8px; border-width: 1px; border-color: black; color:  #636261; padding: 5px;'}))
