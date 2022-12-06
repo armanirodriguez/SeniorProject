@@ -49,6 +49,12 @@ def home(request):
                 query = searchForm.cleaned_data['query']
                 songs = search_songs(query)
     posts = Post.objects.all().order_by('-timestamp')
+    try:
+        test = user_profile.joined_communities.all()
+        posts = Post.objects.all().filter(community__in=test).order_by('-timestamp')
+    except:
+        posts = None
+    
     # TODO: add community form to this
     return render(request, 'communityhome.html', {
         'form' : PostForm(),
@@ -131,7 +137,7 @@ def join_community(request, community_name):
     comm = get_object_or_404(Community, name=community_name)
     user_profile.joined_communities.add(comm)
     user_profile.save()
-    return redirect('groups:community', community_name=community_name)
+    return redirect('groups:home')
 
 def leave_community(request, community_name):
     try:
@@ -141,7 +147,7 @@ def leave_community(request, community_name):
     comm = get_object_or_404(Community, name=community_name)
     user_profile.joined_communities.remove(comm)
     user_profile.save()
-    return redirect('groups:community', community_name=community_name)
+    return redirect('groups:home')
 
 def rate(request, post_id, rating):
     post = Post.objects.get(id=post_id)
