@@ -153,14 +153,14 @@ def rate(request, post_id, rating):
     post = Post.objects.get(id=post_id)
     if not request.user.is_authenticated:
         # Failure, not authenticated
-        return redirect('groups:community', community_name=post.community.name)
+        return HttpResponse("Votes: " + str(post.score))
     elif request.user in post.raters.all():
         # Failure, cannot rate posts twice
-        return redirect('groups:community', community_name=post.community.name)
+        return HttpResponse("Votes: " + str(post.score))
     post.score += 1 if rating > 0 else -1
     post.raters.add(request.user)
     post.save()
-    return redirect('groups:community', community_name=post.community.name)
+    return HttpResponse("Votes: " + str(post.score))
 
 def add(request, post_id):
     post = Post.objects.get(id=post_id)

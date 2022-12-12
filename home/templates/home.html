@@ -20,16 +20,10 @@
         <p> {{ post.text }} </p>
 
         <div>
-          <form action="{% url 'groups:rate' post.id 1  %}" style="display: inline-block;">
-                <input type="submit" value=" ↑ " />
-            </form>
-
-            <p style="display: inline-block; font-weight: bold;"> Votes: {{ post.score }} </p>
-
-            <form action="{% url 'groups:rate' post.id 0  %}" style="display: inline-block;">
-                <input type="submit" value=" ↓ " />
-            </form>
-          </div>
+            <input type="submit" value=" ↑ " data-hx-post="{% url 'groups:rate' post.id 1  %}" hx-target="#post-score" hx-trigger="click" class="btn btn-light" style="border-color: #e3e3e3"/>
+                <p id="post-score" style="display: inline-block; font-weight: bold;"> Votes: {{ post.score }} </p>
+            <input type="submit" value=" ↓ " data-hx-post="{% url 'groups:rate' post.id 0  %}" hx-target="#post-score" hx-trigger="click" class="btn btn-light" style="border-color: #e3e3e3"/>
+        </div>
       </blockquote>
       {% if post.songs.all %}
       <div class="container" style="height: 135px; width: 90%; overflow-x:scroll; text-align: center; background-color: white;">
