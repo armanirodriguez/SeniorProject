@@ -106,10 +106,10 @@
 
             </p>
 
-            <button class="btn btn-success shadow" type="button" data-toggle="collapse" data-target="#collapseExample{{p.playlist.id}}" aria-expanded="false" aria-controls="collapseExample" style="margin-left: 10%; margin-right: 10%; font-weight: bold">
+            <button class="btn btn-success shadow" type="button" data-toggle="collapse" data-target="#collapseExample{{p.id}}" aria-expanded="false" aria-controls="collapseExample" style="margin-left: 10%; margin-right: 10%; font-weight: bold">
               See Songs
             </button>
-            <div class = "collapse" id="collapseExample{{p.playlist.id}}">
+            <div class = "collapse" id="collapseExample{{p.id}}">
               {% for song in p.songs.all %}
                 <p>
                   <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="400" height="80" 
@@ -123,9 +123,9 @@
                   </form>
 
                 </p>
-              </div>
               
             {% endfor %}
+          </div>
           </tc>
         </div>
           {% endfor %}
