@@ -166,15 +166,11 @@
             <p> {{ post.text }} </p>
     
               <div>
-              <form action="{% url 'groups:rate' post.id 1  %}" style="display: inline-block;">
-                    <input type="submit" value=" ↑ " class="btn btn-light" style="border-color: #e3e3e3"/>
-                </form>
-    
-                <p style="display: inline-block; font-weight: bold;"> Votes: {{ post.score }} </p>
-    
-                <form action="{% url 'groups:rate' post.id 0  %}" style="display: inline-block;">
-                    <input type="submit" value=" ↓ " class="btn btn-light" style="border-color: #e3e3e3"/>
-                </form>
+                <div>
+                  <input type="submit" value=" ↑ " data-hx-post="{% url 'groups:rate' post.id 1  %}" hx-target="#score{{ post.id }}" hx-trigger="click" class="btn btn-light" style="border-color: #e3e3e3"/>
+                      <p id="score{{ post.id }}" style="display: inline-block; font-weight: bold;"> Votes: {{ post.score }} </p>
+                  <input type="submit" value=" ↓ " data-hx-post="{% url 'groups:rate' post.id 0  %}" hx-target="#score{{ post.id }}" hx-trigger="click" class="btn btn-light" style="border-color: #e3e3e3"/>
+              </div>
               </div>
           </blockquote>
           {% if post.songs.all %}
