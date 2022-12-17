@@ -6,7 +6,8 @@ from django.views import View
 from django.contrib import messages
 from .forms import RegisterForm, LoginForm, UpdateProfileForm, UpdateUserForm
 from .models import Profile
-
+from groups.models import Post, Comment
+from groups.forms import CommentForm
 
 # Create your views here.
 @login_required
@@ -14,6 +15,8 @@ def profile(request):
     try:
         profile = request.user.profile
         faveSongs = profile.fave_songs.all()
+        user_posts = Post.objects.filter(poster=request.user).order_by('-timestamp')[:5]
+        user_comments = Comment.objects.filter(poster=request.user).order_by('-created_on')[:5]
     except Profile.DoesNotExist:
         profile = Profile(user=request.user)
     if request.method == 'POST':
@@ -30,19 +33,20 @@ def profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'profile.html',
-                  {'user_form': user_form, 'profile_form': profile_form, 'faveSongs': faveSongs})
+                  {'user_form': user_form, 'profile_form': profile_form, 'faveSongs': faveSongs, 'user_posts':user_posts, 'user_comments':user_comments})
 
 
 def publicProfile(request, username):
     try:
         user = get_object_or_404(User, username=username)
+        user_posts = Post.objects.filter(poster=user).order_by('-timestamp')[:5]
+        user_comments = Comment.objects.filter(poster=user).order_by('-created_on')[:5]
         profile = get_object_or_404(Profile, user=user.id)
         faveSongs = profile.fave_songs.all()
     except Profile.DoesNotExist:
         profile = Profile(user=request.user)
 
-    return render(request, 'public_profile.html', {'faveSongs': faveSongs, 'user':user})
-
+    return render(request, 'public_profile.html', {'faveSongs': faveSongs, 'user':user, 'user_posts':user_posts, 'user_comments':user_comments, 'comment_form': CommentForm()})
 
 def dispatch(self, request, *args, **kwargs):
     if request.user.is_authenticated:

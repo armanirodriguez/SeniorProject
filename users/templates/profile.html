@@ -16,6 +16,14 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#profileModal" style="font-weight: bold; font-size: 13px; ">
                                     Edit Profile
                                 </button>
+                                <div class="mt-4">
+                                    {% if user.is_authenticated %}
+                                      <a href="{% url 'users:logout' %}"> <button class="btn btn-secondary" style="font-weight: bold; border-raidus: 13px; font-size: 11px;
+                                        "> Logout </button></a>
+                                    {% else %}
+                                    {% endif %}
+                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -73,15 +81,111 @@
                     </div>
                 </div>
 
-                <div>
-                    {% if user.is_authenticated %}
-                      <a href="{% url 'users:logout' %}"> <button class="btn btn-secondary" style="font-weight: bold; border-raidus: 13px; font-size: 11px;
-                        "> Logout </button></a>
-                    {% else %}
-                    {% endif %}
-
+                <div class="row gutters-sm">
+                    <div class="col-sm-12 mb-3">
+                        <div class="card h-100 shadow" style="background-color: white; border-radius: 9px;">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3" style="font-weight: bold">Recent Posts</h6>
+                                {% for post in user_posts %}
+                                <div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">
+                                    <div class="card-header" style="font-weight: bold; color: #636261">
+                                    {{ post.timestamp }} in <a href="{% url 'groups:community' post.community.name %}" onclick="document.getElementById('comm-btn').click()" style="color: #636261;" >h/{{post.community.name}}</a>
+                                    </div>
+                                    <div class="card-body">
+                                    <blockquote class="blockquote mb-0 text-gray">
+                                        <p> {{ post.text }} </p>
+                                
+                                        <div>
+                                            <input type="submit" value=" ↑ " data-hx-post="{% url 'groups:rate' post.id 1  %}" hx-target="#post-score" hx-trigger="click" class="btn btn-light" style="border-color: #e3e3e3"/>
+                                                <p id="post-score" style="display: inline-block; font-weight: bold;"> Votes: {{ post.score }} </p>
+                                            <input type="submit" value=" ↓ " data-hx-post="{% url 'groups:rate' post.id 0  %}" hx-target="#post-score" hx-trigger="click" class="btn btn-light" style="border-color: #e3e3e3"/>
+                                        </div>
+                                    </blockquote>
+                                    {% if post.songs.all %}
+                                    <div class="container" style="height: 135px; width: 90%; overflow-x:scroll; text-align: center; background-color: white;">
+                                    <table>
+                                        {% for song in post.songs.all %}
+                                        <td style="padding: 10px; padding-bottom: 0px;">
+                                            <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="250" height="100" 
+                                            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                        </td>
+                                    {% endfor %}    
+                                    </table>
+                                </div>
+                                {% endif %}
+                                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal{{post.id}}" data-whatever="@getbootstrap">View Comments</button>
+                                
+                                <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{post.id}}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                            <label for="message-text" class="col-form-label">Add a comment</label>
+                                            <form method="POST" action="{% url 'groups:add' post.id %}">
+                                                {% csrf_token %}
+                                                {{comment_form.as_p}}
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                            </div>
+                                        <hr>
+                                        <div>
+                                            <h5>Comments</h5>
+                                            {% for comment in post.comments.all %}
+                                                {% if comment.post.id == post.id %}
+                                                <div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">
+                                                    <div class="card-header" style="font-weight: bold; color: #636261">
+                                                    {{ comment.created_on }} by <a href="{% url 'users:publicProfile' comment.poster.username%}" style="color: #636261; ">u/{{comment.poster.username}}</a>
+                                                    </div>
+                                                    <div class="card-body">
+                                                    {{comment.body}}
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="row gutters-sm">
+                    <div class="col-sm-12 mb-3">
+                        <div class="card h-100 shadow" style="background-color: white; border-radius: 9px;">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3" style="font-weight: bold">Recent Comments</h6>
+                                {% for comment in user_comments %}
+                                <div class="card shadow text-black m-3" style="background-color: white; border-radius: 9px;">
+                                    <div class="card-header" style="font-weight: bold; color: #636261">
+                                    {{ comment.created_on }} in <a href="{% url 'groups:community' comment.post.community.name %}" onclick="document.getElementById('comm-btn').click()" style="color: #636261;" >h/{{comment.post.community.name}}</a>
+                                    </div>
+                                    <div class="card-body">
+                                    <blockquote class="blockquote mb-0 text-gray">
+                                        <p> {{ comment.body }} </p>
+                                    </blockquote>                                
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

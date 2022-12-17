@@ -8,7 +8,7 @@ from groups.forms import CommentForm
 # Create your views here.
 def home(request):
     posts = Post.objects.all().order_by('-timestamp')
-    communities = Community.objects.all();
+    communities = Community.objects.all()
     return render(request, 'home.html', {
         'posts': posts,
         'communities': communities,
