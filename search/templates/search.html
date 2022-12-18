@@ -5,134 +5,76 @@
 <div style="width: 100%;">
 <div class="card m-3 shadow">
 
-<form method='post' class="searchform" action="{% url 'search:search' %}">
-    {% csrf_token %}
-    <br>
-    <center>
-        <h2 style="font-weight: bold; margin-right: 1rem">Song Search</h2>
-        <p>{{ searchform.query }} 
-        <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; border-color: #46c4f2">
-            GO
-        </button>
-    </p>
-    </center>
-</form>
+<input class="form-control" type="search"
+       name="search" placeholder="Begin Typing To Search Songs"
+       hx-post="{% url 'search:results' %}" hx-trigger="keyup changed delay:100ms, search"
+       hx-target="#results">
 <br>
+<div id="results"></div>
 
-{% if songs %}
-<center>
-    <table>
-        <thead>
-          <tr style="width: 90%; overflow-x:scroll;">
-            {% for song in songs %}
-            <th>
-                <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="160" height="200" 
-                frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px">
-                </iframe>
-            </th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {% if user.is_authenticated %}
-            {% for song in songs %}
-            <td>
-                {% csrf_token %}
-                <center>
-                <a href="{% url 'search:fave_song' song %}" style="text-decoration: none"> <button class="btn btn-light" style="border-color: #e3e3e3; font-weight: bold;"> Favorite + </button> </a>
-                </center>
-
-                {% if playlists%}
-                <form method='post' class="listform" action="{% url 'search:addtolist' song %}">
-                  {% csrf_token %}
-                  <br>
-                  <center>
-                      <p>{{ listform.Playlist }} 
-                      <div style="padding-top: 20px;">
-                      <button type="submit" class="btn btn-light"  style="border-color: #e3e3e3; font-weight: bold;">
-                          Playlist +
-                      </button>
-                    </div>
-                  </p>
-                  </center>
-                </form>
-                {% endif %}
-
-            </td>
-
-
-            {% endfor %}
-            {% endif %}
-          </tr>
-        </tbody>
-      </table>
-      </div>
-    </center>
-{% endif %}
 
 </div>
 
 
 {% comment %} Playlist Section  {% endcomment %}
 <div class="card m-3 shadow">
-  <center>
-    {% if user.is_authenticated %}
-  
-  
-    <form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
-      {% csrf_token %}
-      <h2 style="font-weight: bold; margin-right: 1rem; padding-top: 15px;"> Playlist </h2>
-      <p>{{ addPlayListForm.name }}
-      <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; border-color: #46c4f2">
-           Create
-      </button>
-      </p>
-    </form>
-        {% if playlists %}
-        <h5 style="color: #636261; margin-bottom=-100px;">User Playlists</h5>
-        <table>
-          {% for p in playlists %}
-          <div class="card m-5 shadow" style="overflow-y:scroll; height: 300px;">
-          <tc>
-            <p style="font-weight:bold; padding-top: 10px; font-size: 25px;">{{ p.playlist_name }}
+<center>
+{% if user.is_authenticated %}
 
-              <form method='post' action="{% url 'search:removePlayList' p.playlist_name %}">
+
+<form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
+  {% csrf_token %}
+  <h2 style="font-weight: bold; margin-right: 1rem; padding-top: 15px;"> Playlist </h2>
+  <p>{{ addPlayListForm.name }}
+  <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; border-color: #46c4f2">
+       Create
+  </button>
+  </p>
+</form>
+    {% if playlists %}
+    <h5 style="color: #636261; margin-bottom=-100px;">User Playlists</h5>
+    <table>
+      {% for p in playlists %}
+      <div class="card m-5 shadow" style="overflow-y:scroll; height: 300px;">
+      <tc>
+        <p style="font-weight:bold; padding-top: 10px; font-size: 25px;">{{ p.playlist_name }}
+
+          <form method='post' action="{% url 'search:removePlayList' p.playlist_name %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-light" style="font-size: 7px; border-color: #e3e3e3;">
+                 Delete
+            </button>
+          </form>
+
+        </p>
+
+        <button class="btn btn-success shadow" type="button" data-toggle="collapse" data-target="#collapseExample{{p.id}}" aria-expanded="false" aria-controls="collapseExample" style="margin-left: 10%; margin-right: 10%; font-weight: bold">
+          See Songs
+        </button>
+        <div class = "collapse" id="collapseExample{{p.id}}">
+          {% for song in p.songs.all %}
+            <p>
+              <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="400" height="80"
+              frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px">
+              </iframe>
+              <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}" style="float: right;">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-light" style="font-size: 7px; border-color: #e3e3e3;">
-                     Delete
+                <button type="submit" class="btn btn-light" style="font-size: 6px; border-color: #e3e3e3">
+                     X
                 </button>
               </form>
 
             </p>
 
-            <button class="btn btn-success shadow" type="button" data-toggle="collapse" data-target="#collapseExample{{p.id}}" aria-expanded="false" aria-controls="collapseExample" style="margin-left: 10%; margin-right: 10%; font-weight: bold">
-              See Songs
-            </button>
-            <div class = "collapse" id="collapseExample{{p.id}}">
-              {% for song in p.songs.all %}
-                <p>
-                  <iframe src="https://open.spotify.com/embed/track/{{ song.song_id }}" width="400" height="80" 
-                  frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px">
-                  </iframe>
-                  <form method='post' action="{% url 'search:removePlaySong' p.playlist_name song.song_id %}" style="float: right;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-light" style="font-size: 6px; border-color: #e3e3e3">
-                         X
-                    </button>
-                  </form>
-
-                </p>
-              
-            {% endfor %}
-          </div>
-          </tc>
-        </div>
-          {% endfor %}
-        </table>
-        {% endif %}
+        {% endfor %}
+      </div>
+      </tc>
+    </div>
+      {% endfor %}
+    </table>
     {% endif %}
-  </center>
+{% endif %}
+</center>
 </div>
 </center>
 </div>

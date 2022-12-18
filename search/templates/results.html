@@ -1,0 +1,47 @@
+<center>
+    <table>
+        <thead>
+          <tr style="width: 90%; overflow-x:scroll;">
+            {% for song in songs %}
+            <th>
+                <iframe src="https://open.spotify.com/embed/track/{{ song }}" width="160" height="200"
+                frameborder="1" allowtransparency="true" allow="encrypted-media" style="margin: 10px; margin-bottom: -20px">
+                </iframe>
+            </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody >
+          <tr>
+            {% for song in songs %}
+            <td>
+                {% csrf_token %}
+                <center>
+                <a href="{% url 'search:fave_song' song %}" style="text-decoration: none"> <button class="btn btn-light" style="border-color: #e3e3e3; font-weight: bold;"> Favorite + </button> </a>
+                </center>
+
+                {% if playlists%}
+                <form method='post' class="listform" action="{% url 'search:addtolist' song %}">
+                  {% csrf_token %}
+                  <br>
+                  <center>
+                      <p>{{ listform.Playlist }}
+                      <div style="padding-top: 20px;">
+                      <button type="submit" class="btn btn-light"  style="border-color: #e3e3e3; font-weight: bold;">
+                          Playlist +
+                      </button>
+                    </div>
+                  </p>
+                  </center>
+                </form>
+                {% endif %}
+
+            </td>
+
+
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </center>
