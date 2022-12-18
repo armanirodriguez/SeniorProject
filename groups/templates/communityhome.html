@@ -10,7 +10,7 @@
 </div>
 {% else %}
   <div class="m-3">
-    <h4 class="display-7" style="text-align:center">{{users|length}} user(s) and {{posts|length}} post(s) across all communities</h4>
+    <h4 class="display-7" style="text-align:center">There are {{users|length}} accounts on <b>Herddit</b> and {{posts|length}} posts across your subscribed communities</h4>
     <hr>
   </div>
 {% endif %}
@@ -239,6 +239,30 @@
 
 {% block right-content %}
     <hr>
+
+    {% if community.name %}
+    <form action="{% url 'groups:community' community.name %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-light" style="margin-top: 10px" >Sort By Date</button>
+    </form>
+    <form action="{% url 'groups:communityVote' community.name %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-light" style="margin-top: 10px">Sort By Votes</button>
+    </form>
+    {% else %}
+    <form action="{% url 'groups:home' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-light" style="margin-top: 10px" >Sort By Date</button>
+    </form>
+    <form action="{% url 'groups:homeVote' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-light" style="margin-top: 10px">Sort By Votes</button>
+    </form>
+
+    {% endif %}
+
+
+
     <form method="post" class="createCommunityForm" action="{% url 'groups:createCommunity' %}">
       {% csrf_token %}
       <h4>Create Community</h4>
