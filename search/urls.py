@@ -4,6 +4,7 @@ from search import views
 app_name = "search"
 
 urlpatterns = [
+    path('results', views.results, name='results'),
     path('', views.search, name='search'),
     path("faveSong/<str:song_id>", views.fave_song, name='fave_song'),
     path("addtolist/<str:song_id>", views.addtolist, name='addtolist'),
