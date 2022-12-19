@@ -10,5 +10,5 @@ class ListForm(forms.Form):
     Playlist = forms.ModelChoiceField(queryset=Playlist.objects.all(),empty_label=None)
 
 class AddPlayListForm(forms.Form):
-    name = forms.CharField(widget=forms.TextInput(attrs={'size': '30', 'style' : 'border-radius: 8px; border-width: 1px; border-color: black; margin-left: 10px; color:  #636261; padding: 5px;'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '20', 'style' : 'border-radius: 8px; border-width: 1px; border-color: black; margin-left: 10px; color:  #636261; padding: 5px;'}))
    
