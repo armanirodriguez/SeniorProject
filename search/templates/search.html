@@ -6,7 +6,7 @@
 <div class="card m-3 shadow">
 
 <input class="form-control" type="search"
-       name="search" placeholder="Begin Typing To Search Songs"
+       name="search" placeholder="Begin Typing To Search Songs or Artists..."
        hx-post="{% url 'search:results' %}" hx-trigger="keyup changed delay:100ms, search"
        hx-target="#results">
 <br>
