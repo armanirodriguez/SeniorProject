@@ -20,17 +20,6 @@
 <div class="card m-3 shadow">
 <center>
 {% if user.is_authenticated %}
-
-
-<form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
-  {% csrf_token %}
-  <h2 style="font-weight: bold; margin-right: 1rem; padding-top: 15px;"> Playlist </h2>
-  <p>{{ addPlayListForm.name }}
-  <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; border-color: #46c4f2">
-       Create
-  </button>
-  </p>
-</form>
     {% if playlists %}
     <h5 style="color: #636261; margin-bottom=-100px;">User Playlists</h5>
     <table>
@@ -81,5 +70,16 @@
 {% endblock mid-content %}
 
 
-{% block right-bar %}
-{% endblock right-bar %}
+{% block right-content %}
+{% if user.is_authenticated %}
+<form method='post' class="addPlayListForm" action="{% url 'search:addPlayList' %}">
+  {% csrf_token %}
+  <h2 style="font-weight: bold; margin-right: 1rem; margin-left: 10px; padding-top: 15px;"> Create Playlist </h2>
+  <p>{{ addPlayListForm.name }}
+  <button type="submit" class="btn btn-secondary" style="background-color: #46c4f2; margin-left: 10px; border-color: #46c4f2">
+       Create
+  </button>
+  </p>
+</form>
+{% endif %}
+{% endblock right-content %}
