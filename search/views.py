@@ -57,7 +57,15 @@ def search_songs(query):
 
 def results(request):
     search = request.POST['search']
+    listform = ListForm(request.POST)
+    addPlayListForm = AddPlayListForm(request.POST)
+    if request.user.is_authenticated:
+        userprofile = request.user.profile
+        playlists = userprofile.playlists.all()
+        listform.fields['Playlist'].queryset = playlists
+        return render(request, 'results.html', {'songs': search_songs(search),'listform': listform, 'addPlayListForm': addPlayListForm,'playlists': playlists})
     return render(request, 'results.html', {'songs': search_songs(search)})
+
 
 
 def fave_song(request, song_id):
